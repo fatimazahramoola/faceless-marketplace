@@ -24,16 +24,18 @@ export default function Home() {
             </div>
           </div>
 
-          <button className="rounded-xl bg-[#3F2B96] px-6 py-3 font-medium text-white hover:opacity-90">
+          <a
+            href="mailto:fatimazahramoola@gmail.com?subject=Faceless Marketplace Waitlist"
+            className="inline-flex items-center justify-center rounded-xl bg-[#3F2B96] px-8 py-4 text-white font-semibold hover:opacity-90 transition"
+          >
             Join Waitlist
-          </button>
+          </a>
 
         </div>
       </nav>
 
       {/* HERO */}
-      <section className="mx-auto max-w-7xl px-6 py-20">
-
+      <section className="mx-auto flex min-h-[calc(100vh-88px)] max-w-7xl items-center px-6">
         <div className="grid items-center gap-12 lg:grid-cols-2">
 
           {/* LEFT */}
@@ -58,13 +60,18 @@ export default function Home() {
 
             <div className="mt-10 flex flex-wrap gap-4">
 
-              <button className="rounded-2xl bg-[#3F2B96] px-8 py-4 font-semibold text-white">
+              <a
+                href="mailto:fatimazahramoola@gmail.com?subject=Faceless Marketplace Waitlist"
+                className="rounded-2xl bg-[#3F2B96] px-8 py-4 font-semibold text-white inline-flex items-center justify-center"
+              >
                 Join Waitlist
-              </button>
-
-              <button className="rounded-2xl border border-neutral-300 px-8 py-4 font-semibold text-neutral-700">
+              </a>
+              <a
+                href="#learn-more"
+                className="rounded-2xl border border-neutral-300 px-8 py-4 font-semibold text-neutral-700 inline-flex items-center justify-center"
+              >
                 Learn More
-              </button>
+              </a>
 
             </div>
 
@@ -127,7 +134,9 @@ export default function Home() {
       </section>
 
       {/* WHY FACELESS */}
-      <section className="bg-white py-12">
+      <section
+        id="learn-more"
+        className="bg-white py-12">
 
         <div className="mx-auto max-w-7xl px-6">
 
@@ -173,7 +182,52 @@ export default function Home() {
         </div>
 
       </section>
+      <footer className="border-t border-neutral-200 mt-24">
+        <div className="max-w-6xl mx-auto px-6 py-12">
+          <div className="flex flex-col md:flex-row justify-between gap-8">
+            <div className="flex items-center gap-4">
 
+              <img
+                src="/logo.png"
+                alt="Faceless Marketplace"
+                className="h-12 w-auto"
+              />
+
+              <div>
+                <div className="text-xl font-bold tracking-wide text-neutral-900">
+                  FACELESS
+                </div>
+
+                <div className="text-xs tracking-[0.2em] text-neutral-500">
+                  MARKETPLACE
+                </div>
+              </div>
+
+            </div>
+
+            <p className="mt-4 max-w-sm text-neutral-600">
+              Your trusted middleman for safer transactions.
+            </p>
+
+            <div>
+              <h4 className="font-semibold text-neutral-900">
+                Contact
+              </h4>
+
+              <a
+                href="mailto:fatimazahramoola@gmail.com"
+                className="text-[#3F2B96] hover:underline"
+              >
+                fatimazahramoola@gmail.com
+              </a>
+            </div>
+          </div>
+
+          <div className="mt-8 pt-8 border-t border-neutral-200 text-sm text-neutral-500">
+            © {new Date().getFullYear()} Faceless Marketplace. All rights reserved.
+          </div>
+        </div>
+      </footer>
     </main>
   );
 }
