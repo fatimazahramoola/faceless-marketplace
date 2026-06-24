@@ -55,9 +55,11 @@ export default function Home() {
               ))}
             </div>
 
-            <div className="mt-8 flex flex-wrap gap-x-4 gap-y-2 text-xs font-medium text-neutral-700 sm:mt-10 sm:gap-6 sm:text-sm">
+            <div className="mt-8 flex flex-wrap gap-x-4 gap-y-2 text-xs font-medium text-neutral-700 sm:mt-10 sm:gap-3 sm:text-sm">
               {HERO_TRUST_POINTS.map((point) => (
-                <span key={point}>✓ {point}</span>
+                <span key={point} className="whitespace-nowrap">
+                  ✓ {point}
+                </span>
               ))}
             </div>
           </div>
