@@ -17,7 +17,6 @@ import {
 import { createPageMetadata } from "@/lib/metadata";
 
 export const metadata = createPageMetadata({
-  title: "Trusted online selling for everyone",
   description: HERO_SUBHEADING,
   path: "/",
 });
