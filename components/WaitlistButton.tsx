@@ -12,7 +12,7 @@ export function WaitlistButton({
   children = "Join Waitlist",
 }: WaitlistButtonProps) {
   const baseClasses =
-    "inline-flex items-center justify-center rounded-2xl px-8 py-4 font-semibold transition";
+    "inline-flex min-h-11 w-full items-center justify-center rounded-2xl px-8 py-4 font-semibold transition sm:w-auto";
 
   const variantClasses =
     variant === "primary"

@@ -14,7 +14,7 @@ export function SectionContainer({
   id,
 }: SectionContainerProps) {
   return (
-    <Tag id={id} className={`mx-auto max-w-7xl px-6 ${className}`}>
+    <Tag id={id} className={`mx-auto max-w-7xl px-4 sm:px-6 ${className}`}>
       {children}
     </Tag>
   );

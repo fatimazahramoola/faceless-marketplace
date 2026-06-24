@@ -1,16 +1,18 @@
-import type { Metadata } from "next";
 import { SectionContainer } from "@/components/SectionContainer";
-import { CONTACT_EMAIL, SITE_NAME } from "@/lib/constants";
+import { CONTACT_EMAIL } from "@/lib/constants";
+import { createPageMetadata } from "@/lib/metadata";
 
-export const metadata: Metadata = {
+export const metadata = createPageMetadata({
   title: "Terms of Service",
-  description: `Terms of Service for ${SITE_NAME}.`,
-};
+  description:
+    "Terms of Service for Faceless Marketplace. Read the terms governing use of our platform and website.",
+  path: "/terms",
+});
 
 export default function TermsPage() {
   return (
     <main className="bg-white">
-      <SectionContainer className="py-20">
+      <SectionContainer className="py-12 sm:py-20">
         <div className="mx-auto max-w-3xl">
           <div className="mb-8 rounded-2xl border border-amber-200 bg-amber-50 px-6 py-4 text-sm text-amber-900">
             <strong>Draft terms.</strong> This document is provided for

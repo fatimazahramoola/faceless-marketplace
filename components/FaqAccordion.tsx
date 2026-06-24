@@ -20,21 +20,21 @@ export function FaqAccordion({ items }: FaqAccordionProps) {
             <button
               type="button"
               onClick={() => setOpenIndex(isOpen ? null : index)}
-              className="flex w-full items-center justify-between gap-4 px-6 py-5 text-left transition hover:bg-neutral-50"
+              className="flex w-full min-h-11 items-center justify-between gap-3 px-4 py-4 text-left transition hover:bg-neutral-50 sm:gap-4 sm:px-6 sm:py-5"
               aria-expanded={isOpen}
             >
-              <span className="font-semibold text-neutral-900">
+              <span className="text-sm font-semibold text-neutral-900 sm:text-base">
                 {item.question}
               </span>
               <span
-                className="shrink-0 text-xl text-[#3F2B96] transition-transform"
+                className="shrink-0 text-xl text-[#3F2B96]"
                 aria-hidden
               >
                 {isOpen ? "−" : "+"}
               </span>
             </button>
             {isOpen && (
-              <div className="px-6 pb-5 text-neutral-600 leading-relaxed">
+              <div className="px-4 pb-4 text-sm leading-relaxed text-neutral-600 sm:px-6 sm:pb-5 sm:text-base">
                 {item.answer}
               </div>
             )}

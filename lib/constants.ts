@@ -1,5 +1,5 @@
 export const SITE_NAME = "Faceless Marketplace";
-export const SITE_TAGLINE = "Your trusted middleman for safer transactions.";
+export const SITE_TAGLINE = "A trusted way to buy and sell online.";
 export const CONTACT_EMAIL = "fatimazahramoola@gmail.com";
 
 export const BRAND_COLOR = "#3F2B96";
@@ -20,11 +20,75 @@ export const FOOTER_LINKS = [
   { href: "/terms", label: "Terms" },
 ] as const;
 
+export const HERO_BADGE =
+  "For side hustles, small businesses, and everyday sellers.";
+
+export const HERO_HEADLINE = "Trusted online selling for everyone.";
+
+export const HERO_SUBHEADING =
+  "Whether you're selling a once-off item, a handmade product, or building a side business, Faceless Marketplace helps buyers and sellers transact with confidence through a trusted middleman.";
+
+export const HERO_TRUST_POINTS = [
+  "Buyer Protection",
+  "Seller Protection",
+  "Secure Payments",
+  "Dispute Resolution",
+] as const;
+
+export const WHY_FACELESS_HEADING = "Why Faceless?";
+
+export const WHY_FACELESS_SUBHEADING =
+  "Most online selling forces you to choose between risky person-to-person deals and complicated retail setups. Faceless gives everyday sellers a trusted way to sell — with protection built in.";
+
+export const POSITIONING_HEADING =
+  "More trusted than classifieds. Simpler than becoming an online retailer.";
+
+export const POSITIONING_INTRO =
+  "Most online selling options force you into one of two extremes: risky person-to-person transactions that rely entirely on trust, or full online retail platforms that can be overwhelming for everyday sellers.";
+
+export const POSITIONING_BODY =
+  "Faceless Marketplace sits in the middle. Whether you're selling a once-off item, running a side hustle, or growing a small business, Faceless helps buyers and sellers transact with confidence through a trusted middleman.";
+
+export const MARKET_COMPARISON = [
+  {
+    label: "Classifieds",
+    points: ["Direct payments", "Trust strangers", "Limited protection"],
+    highlight: false,
+  },
+  {
+    label: "Faceless Marketplace",
+    points: [
+      "Trusted middleman",
+      "Buyer and seller protection",
+      "Built for everyday sellers",
+    ],
+    highlight: true,
+  },
+  {
+    label: "Online Retailer",
+    points: ["Formal onboarding", "Store setup", "More complexity"],
+    highlight: false,
+  },
+] as const;
+
+export const ROADMAP_LAUNCH = [
+  "Buyer protection",
+  "Seller protection",
+  "Secure transactions",
+] as const;
+
+export const ROADMAP_FUTURE = [
+  "Delivery integration",
+  "Verified sellers",
+  "Seller profiles",
+  "Marketplace search",
+] as const;
+
 export const FAQ_ITEMS = [
   {
     question: "What is Faceless Marketplace?",
     answer:
-      "Faceless Marketplace is an online marketplace where anyone can buy or sell with confidence. We act as a trusted middleman, holding payment securely until both buyer and seller are satisfied — so you never have to send money directly to a stranger.",
+      "Faceless Marketplace is a trusted way to buy and sell online. We sit between buyers and sellers as a middleman — so side hustlers, once-off sellers, and small businesses can sell without building a full online store, and buyers can purchase with confidence.",
   },
   {
     question: "How does it work?",
@@ -34,7 +98,7 @@ export const FAQ_ITEMS = [
   {
     question: "Why is it safer?",
     answer:
-      "Traditional marketplaces often leave buyers and sellers to trust each other upfront. Faceless sits in the middle: buyers get protection if items don't arrive or aren't as described, and sellers know payment is verified before they ship.",
+      "Faceless is more trusted than classifieds because we sit in the middle of every transaction — buyers never send money directly to strangers, and sellers know payment is verified before they ship. It's simpler than becoming a traditional online retailer, but with the buyer and seller protection you'd expect from a trusted marketplace.",
   },
   {
     question: "When will it launch?",
@@ -44,7 +108,7 @@ export const FAQ_ITEMS = [
   {
     question: "Who can sell?",
     answer:
-      "Anyone who wants to sell online — you don't need your own website, a complicated setup, or formal retailer status. Faceless gives you a simple way to reach buyers with built-in trust and payment confidence.",
+      "Anyone — side hustlers, once-off sellers, and small businesses alike. You don't need your own website, a complicated setup, or formal retailer status. Faceless gives you a simple way to reach buyers with built-in trust and payment confidence.",
   },
   {
     question: "Can anyone sell on Faceless Marketplace?",

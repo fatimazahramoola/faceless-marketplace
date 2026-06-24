@@ -1,16 +1,18 @@
-import type { Metadata } from "next";
 import { SectionContainer } from "@/components/SectionContainer";
-import { CONTACT_EMAIL, SITE_NAME } from "@/lib/constants";
+import { CONTACT_EMAIL } from "@/lib/constants";
+import { createPageMetadata } from "@/lib/metadata";
 
-export const metadata: Metadata = {
+export const metadata = createPageMetadata({
   title: "Privacy Policy",
-  description: `Privacy Policy for ${SITE_NAME}.`,
-};
+  description:
+    "Privacy Policy for Faceless Marketplace. Learn how we collect, use, and protect your personal information.",
+  path: "/privacy",
+});
 
 export default function PrivacyPage() {
   return (
     <main className="bg-white">
-      <SectionContainer className="py-20">
+      <SectionContainer className="py-12 sm:py-20">
         <div className="mx-auto max-w-3xl">
           <div className="mb-8 rounded-2xl border border-amber-200 bg-amber-50 px-6 py-4 text-sm text-amber-900">
             <strong>Draft policy.</strong> This document is provided for

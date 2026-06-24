@@ -1,100 +1,82 @@
+import { HowItWorksCard } from "@/components/HowItWorksCard";
+import { PositioningSection } from "@/components/PositioningSection";
+import { RoadmapSection } from "@/components/RoadmapSection";
 import { SectionContainer } from "@/components/SectionContainer";
 import { WaitlistButton } from "@/components/WaitlistButton";
 import { WaitlistSection } from "@/components/WaitlistSection";
+import {
+  HERO_BADGE,
+  HERO_HEADLINE,
+  HERO_SUBHEADING,
+  HERO_TRUST_POINTS,
+  WHY_FACELESS_HEADING,
+  WHY_FACELESS_SUBHEADING,
+} from "@/lib/constants";
+import { createPageMetadata } from "@/lib/metadata";
+
+export const metadata = createPageMetadata({
+  title: "Trusted online selling for everyone",
+  description: HERO_SUBHEADING,
+  path: "/",
+});
 
 export default function Home() {
   return (
     <main className="min-h-screen bg-white">
-      <SectionContainer className="flex min-h-[calc(100vh-88px)] items-center">
-        <div className="grid w-full items-center gap-12 lg:grid-cols-2">
+      <SectionContainer className="flex min-h-0 items-center py-12 lg:min-h-[calc(100vh-88px)] lg:py-0">
+        <div className="grid w-full items-center gap-10 lg:grid-cols-2 lg:gap-12">
           <div>
             <div className="mb-6 inline-flex rounded-full bg-[#F4F1FF] px-4 py-2 text-sm font-medium text-[#3F2B96]">
-              Safe buying. Safer selling.
+              {HERO_BADGE}
             </div>
 
-            <h1 className="text-5xl font-bold leading-tight text-neutral-900 md:text-7xl">
-              Buy and sell
-              <br />
-              safely.
+            <h1 className="text-4xl font-bold leading-tight text-neutral-900 sm:text-5xl md:text-6xl lg:text-7xl">
+              {HERO_HEADLINE}
             </h1>
 
-            <p className="mt-8 max-w-xl text-xl leading-relaxed text-neutral-600">
-              Stop sending money directly to strangers. Faceless Marketplace
-              acts as a trusted middleman, holding payment securely until both
-              buyer and seller have peace of mind.
+            <p className="mt-6 max-w-xl text-base leading-relaxed text-neutral-600 sm:mt-8 sm:text-xl">
+              {HERO_SUBHEADING}
             </p>
 
-            <div className="mt-10 flex flex-wrap gap-4">
+            <div className="mt-8 flex flex-col gap-3 sm:mt-10 sm:flex-row sm:flex-wrap sm:gap-4">
               <WaitlistButton />
               <a
                 href="#learn-more"
-                className="inline-flex items-center justify-center rounded-2xl border border-neutral-300 px-8 py-4 font-semibold text-neutral-700 transition hover:bg-neutral-50"
+                className="inline-flex min-h-11 w-full items-center justify-center rounded-2xl border border-neutral-300 px-8 py-4 font-semibold text-neutral-700 transition hover:bg-neutral-50 sm:w-auto"
               >
                 Learn More
               </a>
             </div>
 
-            <div className="mt-10 flex flex-wrap gap-6 text-sm font-medium text-neutral-700">
-              <span>✓ Buyer Protection</span>
-              <span>✓ Seller Protection</span>
-              <span>✓ Secure Payments</span>
-              <span>✓ Dispute Resolution</span>
+            <div className="mt-8 flex flex-wrap gap-x-4 gap-y-2 text-xs font-medium text-neutral-700 sm:mt-10 sm:gap-6 sm:text-sm">
+              {HERO_TRUST_POINTS.map((point) => (
+                <span key={point}>✓ {point}</span>
+              ))}
             </div>
           </div>
 
           <div>
-            <div className="rounded-[32px] border border-neutral-200 bg-white p-8 shadow-xl">
-              <h2 className="text-center text-3xl font-bold text-neutral-900">
-                How FACELESS Works
-              </h2>
-
-              <p className="mt-2 text-center text-neutral-600">
-                We sit between the buyer and seller.
-              </p>
-
-              <div className="mt-10 grid grid-cols-5 items-center gap-3">
-                <div className="rounded-xl border border-neutral-200 bg-white p-4 text-center text-sm font-semibold text-neutral-900">
-                  Buyer Pays
-                </div>
-
-                <div className="text-center text-2xl text-[#3F2B96]">→</div>
-
-                <div className="rounded-xl border border-[#D9D1FF] bg-[#F4F1FF] p-4 text-center text-sm font-bold text-[#3F2B96]">
-                  Faceless Holds Funds
-                </div>
-
-                <div className="text-center text-2xl text-[#3F2B96]">→</div>
-
-                <div className="rounded-xl border border-green-200 bg-green-50 p-4 text-center text-sm font-bold text-green-700">
-                  Seller Paid
-                </div>
-              </div>
-
-              <p className="mt-8 text-center text-neutral-600">
-                Payment is only released once the buyer receives the item.
-              </p>
-            </div>
+            <HowItWorksCard />
           </div>
         </div>
       </SectionContainer>
 
-      <SectionContainer id="learn-more" className="bg-white py-12">
-        <h2 className="text-center text-4xl font-bold text-neutral-900">
-          Why Faceless?
+      <SectionContainer id="learn-more" className="py-12 sm:py-16">
+        <h2 className="text-center text-3xl font-bold text-neutral-900 sm:text-4xl">
+          {WHY_FACELESS_HEADING}
         </h2>
 
-        <p className="mx-auto mt-4 max-w-2xl text-center text-lg text-neutral-600">
-          Traditional marketplaces connect buyers and sellers. Faceless protects
-          both sides of the transaction.
+        <p className="mx-auto mt-4 max-w-2xl text-center text-base text-neutral-600 sm:text-lg">
+          {WHY_FACELESS_SUBHEADING}
         </p>
 
-        <div className="mt-14 grid gap-6 md:grid-cols-2">
-          <div className="rounded-3xl border border-neutral-200 p-8">
-            <h3 className="text-xl font-bold text-neutral-900">
+        <div className="mt-10 grid gap-6 sm:mt-14 md:grid-cols-2">
+          <div className="rounded-3xl border border-neutral-200 p-6 sm:p-8">
+            <h3 className="text-lg font-bold text-neutral-900 sm:text-xl">
               Traditional Marketplace
             </h3>
 
-            <ul className="mt-6 space-y-4 text-neutral-600">
+            <ul className="mt-4 space-y-3 text-sm text-neutral-600 sm:mt-6 sm:space-y-4 sm:text-base">
               <li>Buyer sends money directly</li>
               <li>Seller hopes payment is real</li>
               <li>Trust is required upfront</li>
@@ -102,12 +84,12 @@ export default function Home() {
             </ul>
           </div>
 
-          <div className="rounded-3xl border-2 border-[#3F2B96] p-8">
-            <h3 className="text-xl font-bold text-[#3F2B96]">
+          <div className="rounded-3xl border-2 border-[#3F2B96] p-6 sm:p-8">
+            <h3 className="text-lg font-bold text-[#3F2B96] sm:text-xl">
               Faceless Marketplace
             </h3>
 
-            <ul className="mt-6 space-y-4 text-neutral-700">
+            <ul className="mt-4 space-y-3 text-sm text-neutral-700 sm:mt-6 sm:space-y-4 sm:text-base">
               <li>✓ Payment held securely</li>
               <li>✓ Seller verifies payment first</li>
               <li>✓ Buyer receives protection</li>
@@ -117,6 +99,8 @@ export default function Home() {
         </div>
       </SectionContainer>
 
+      <PositioningSection />
+      <RoadmapSection />
       <WaitlistSection />
     </main>
   );

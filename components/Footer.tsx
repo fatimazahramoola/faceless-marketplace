@@ -8,12 +8,14 @@ import {
 
 export function Footer() {
   return (
-    <footer className="mt-24 border-t border-neutral-200">
-      <div className="mx-auto max-w-7xl px-6 py-12">
-        <div className="flex flex-col justify-between gap-8 md:flex-row">
-          <div>
+    <footer className="mt-16 border-t border-neutral-200 sm:mt-24">
+      <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 sm:py-12">
+        <div className="grid gap-8 sm:grid-cols-2 md:flex md:flex-row md:justify-between">
+          <div className="sm:col-span-2 md:col-span-1">
             <Logo size="sm" />
-            <p className="mt-4 max-w-sm text-neutral-600">{SITE_TAGLINE}</p>
+            <p className="mt-4 max-w-sm text-sm text-neutral-600 sm:text-base">
+              {SITE_TAGLINE}
+            </p>
           </div>
 
           <div>
@@ -23,7 +25,7 @@ export function Footer() {
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-neutral-600 transition hover:text-[#3F2B96]"
+                    className="inline-flex min-h-11 items-center text-sm text-neutral-600 transition hover:text-[#3F2B96] sm:min-h-0 sm:text-base"
                   >
                     {link.label}
                   </Link>
@@ -36,7 +38,7 @@ export function Footer() {
             <h4 className="font-semibold text-neutral-900">Contact</h4>
             <a
               href={`mailto:${CONTACT_EMAIL}`}
-              className="mt-3 inline-block text-[#3F2B96] hover:underline"
+              className="mt-3 inline-block break-all text-sm text-[#3F2B96] hover:underline sm:text-base"
             >
               {CONTACT_EMAIL}
             </a>
