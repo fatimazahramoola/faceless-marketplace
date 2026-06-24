@@ -7,11 +7,15 @@ export const BRAND_ACCENT_BG = "#F4F1FF";
 export const BRAND_ACCENT_BORDER = "#D9D1FF";
 
 export const NAV_LINKS = [
+  { href: "/listings", label: "Browse" },
+  { href: "/sell", label: "Sell" },
   { href: "/about", label: "About" },
   { href: "/faq", label: "FAQ" },
 ] as const;
 
 export const FOOTER_LINKS = [
+  { href: "/listings", label: "Browse" },
+  { href: "/sell", label: "Sell" },
   { href: "/about", label: "About" },
   { href: "/faq", label: "FAQ" },
   { href: "/privacy", label: "Privacy" },

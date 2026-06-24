@@ -18,3 +18,22 @@ export type HowItWorksStep = {
   subtitle: string;
   highlight?: boolean;
 };
+
+export type ListingStatus = "draft" | "active" | "sold" | "archived";
+
+export type Listing = {
+  id: string;
+  title: string;
+  description: string;
+  price: number;
+  image_urls: string[];
+  status: ListingStatus;
+  created_at: string;
+  updated_at: string;
+};
+
+export type ListingFormState = {
+  success: boolean;
+  message: string;
+  listingId?: string;
+};
