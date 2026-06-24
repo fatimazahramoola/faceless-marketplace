@@ -14,7 +14,7 @@ export default function AboutPage() {
     <main className="bg-white">
       <SectionContainer className="py-12 sm:py-20">
         <div className="mx-auto max-w-3xl">
-          <div className="mb-6 inline-flex rounded-full bg-[#F4F1FF] px-4 py-2 text-sm font-medium text-[#3F2B96]">
+          <div className="mb-6 inline-flex rounded-full bg-[#F4F1FF] px-4 py-2 text-sm font-medium text-[#7B3FE4]">
             About us
           </div>
 

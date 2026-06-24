@@ -23,7 +23,7 @@ export function Navbar() {
 
           <Link
             href="/#waitlist"
-            className="inline-flex min-h-11 items-center justify-center rounded-xl bg-[#3F2B96] px-4 py-2.5 text-sm font-semibold text-white transition hover:opacity-90 sm:px-8 sm:py-3"
+            className="inline-flex min-h-11 items-center justify-center rounded-xl bg-[#7B3FE4] px-4 py-2.5 text-sm font-semibold text-white transition hover:opacity-90 sm:px-8 sm:py-3"
           >
             Join Waitlist
           </Link>

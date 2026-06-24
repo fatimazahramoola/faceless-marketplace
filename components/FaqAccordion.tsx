@@ -27,7 +27,7 @@ export function FaqAccordion({ items }: FaqAccordionProps) {
                 {item.question}
               </span>
               <span
-                className="shrink-0 text-xl text-[#3F2B96]"
+                className="shrink-0 text-xl text-[#7B3FE4]"
                 aria-hidden
               >
                 {isOpen ? "−" : "+"}

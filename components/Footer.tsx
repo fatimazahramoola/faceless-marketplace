@@ -25,7 +25,7 @@ export function Footer() {
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="inline-flex min-h-11 items-center text-sm text-neutral-600 transition hover:text-[#3F2B96] sm:min-h-0 sm:text-base"
+                    className="inline-flex min-h-11 items-center text-sm text-neutral-600 transition hover:text-[#7B3FE4] sm:min-h-0 sm:text-base"
                   >
                     {link.label}
                   </Link>
@@ -38,7 +38,7 @@ export function Footer() {
             <h4 className="font-semibold text-neutral-900">Contact</h4>
             <a
               href={`mailto:${CONTACT_EMAIL}`}
-              className="mt-3 inline-block break-all text-sm text-[#3F2B96] hover:underline sm:text-base"
+              className="mt-3 inline-block break-all text-sm text-[#7B3FE4] hover:underline sm:text-base"
             >
               {CONTACT_EMAIL}
             </a>

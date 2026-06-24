@@ -27,7 +27,7 @@ export default function Home() {
       <SectionContainer className="flex min-h-0 items-center py-12 lg:min-h-[calc(100vh-88px)] lg:py-0">
         <div className="grid w-full items-center gap-10 lg:grid-cols-2 lg:gap-12">
           <div>
-            <div className="mb-6 inline-flex rounded-full bg-[#F4F1FF] px-4 py-2 text-sm font-medium text-[#3F2B96]">
+            <div className="mb-6 inline-flex rounded-full bg-[#F4F1FF] px-4 py-2 text-sm font-medium text-[#7B3FE4]">
               {HERO_BADGE}
             </div>
 
@@ -93,8 +93,8 @@ export default function Home() {
             </ul>
           </div>
 
-          <div className="rounded-3xl border-2 border-[#3F2B96] p-6 sm:p-8">
-            <h3 className="text-lg font-bold text-[#3F2B96] sm:text-xl">
+          <div className="rounded-3xl border-2 border-[#7B3FE4] p-6 sm:p-8">
+            <h3 className="text-lg font-bold text-[#7B3FE4] sm:text-xl">
               Faceless Marketplace
             </h3>
 

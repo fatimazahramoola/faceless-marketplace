@@ -52,7 +52,7 @@ export function WaitlistForm() {
   if (state === "duplicate") {
     return (
       <div className="rounded-2xl border border-[#D9D1FF] bg-white px-6 py-8 text-center">
-        <p className="text-lg font-semibold text-[#3F2B96]">
+        <p className="text-lg font-semibold text-[#7B3FE4]">
           You&apos;re already on the waitlist.
         </p>
         <p className="mt-2 text-sm text-neutral-600">
@@ -78,12 +78,12 @@ export function WaitlistForm() {
           onChange={(event) => setEmail(event.target.value)}
           placeholder="you@example.com"
           disabled={state === "loading"}
-          className="min-h-11 flex-1 rounded-xl border border-neutral-300 bg-white px-4 text-base text-neutral-900 placeholder:text-neutral-400 focus:border-[#3F2B96] focus:outline-none focus:ring-2 focus:ring-[#3F2B96]/20 disabled:opacity-60"
+          className="min-h-11 flex-1 rounded-xl border border-neutral-300 bg-white px-4 text-base text-neutral-900 placeholder:text-neutral-400 focus:border-[#7B3FE4] focus:outline-none focus:ring-2 focus:ring-[#7B3FE4]/20 disabled:opacity-60"
         />
         <button
           type="submit"
           disabled={state === "loading"}
-          className="min-h-11 shrink-0 rounded-xl bg-[#3F2B96] px-6 py-3 text-base font-semibold text-white transition hover:opacity-90 disabled:opacity-60 sm:px-8"
+          className="min-h-11 shrink-0 rounded-xl bg-[#7B3FE4] px-6 py-3 text-base font-semibold text-white transition hover:opacity-90 disabled:opacity-60 sm:px-8"
         >
           {state === "loading" ? "Joining…" : "Join Waitlist"}
         </button>

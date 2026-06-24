@@ -2,7 +2,7 @@ export const SITE_NAME = "Faceless Marketplace";
 export const SITE_TAGLINE = "A trusted way to buy and sell online.";
 export const CONTACT_EMAIL = "fatimazahramoola@gmail.com";
 
-export const BRAND_COLOR = "#3F2B96";
+export const BRAND_COLOR = "#7B3FE4";
 export const BRAND_ACCENT_BG = "#F4F1FF";
 export const BRAND_ACCENT_BORDER = "#D9D1FF";
 

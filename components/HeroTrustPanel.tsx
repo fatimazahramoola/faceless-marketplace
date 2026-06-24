@@ -14,7 +14,7 @@ export function HeroTrustPanel() {
             className="flex items-start gap-4 rounded-2xl border border-neutral-100 bg-neutral-50 p-4"
           >
             <span
-              className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#F4F1FF] text-sm font-bold text-[#3F2B96]"
+              className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#F4F1FF] text-sm font-bold text-[#7B3FE4]"
               aria-hidden
             >
               ✓

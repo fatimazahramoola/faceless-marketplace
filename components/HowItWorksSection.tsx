@@ -29,8 +29,8 @@ export function HowItWorksSection() {
               <div
                 className={`relative z-10 flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-sm font-bold ${
                   step.highlight
-                    ? "bg-[#3F2B96] text-white ring-4 ring-[#F4F1FF]"
-                    : "border-2 border-[#D9D1FF] bg-white text-[#3F2B96]"
+                    ? "bg-[#7B3FE4] text-white ring-4 ring-[#F4F1FF]"
+                    : "border-2 border-[#D9D1FF] bg-white text-[#7B3FE4]"
                 }`}
               >
                 {step.step}
@@ -38,13 +38,13 @@ export function HowItWorksSection() {
               <div
                 className={`flex-1 rounded-2xl p-4 ${
                   step.highlight
-                    ? "border-2 border-[#3F2B96] bg-[#F4F1FF]"
+                    ? "border-2 border-[#7B3FE4] bg-[#F4F1FF]"
                     : "border border-neutral-200 bg-white"
                 }`}
               >
                 <p
                   className={`font-semibold ${
-                    step.highlight ? "text-[#3F2B96]" : "text-neutral-900"
+                    step.highlight ? "text-[#7B3FE4]" : "text-neutral-900"
                   }`}
                 >
                   {step.title}
@@ -68,8 +68,8 @@ export function HowItWorksSection() {
               <div
                 className={`relative z-10 flex h-10 w-10 items-center justify-center rounded-full text-sm font-bold ${
                   step.highlight
-                    ? "bg-[#3F2B96] text-white ring-4 ring-[#F4F1FF]"
-                    : "border-2 border-[#D9D1FF] bg-white text-[#3F2B96]"
+                    ? "bg-[#7B3FE4] text-white ring-4 ring-[#F4F1FF]"
+                    : "border-2 border-[#D9D1FF] bg-white text-[#7B3FE4]"
                 }`}
               >
                 {step.step}
@@ -77,13 +77,13 @@ export function HowItWorksSection() {
               <div
                 className={`mt-4 w-full rounded-2xl p-4 ${
                   step.highlight
-                    ? "border-2 border-[#3F2B96] bg-[#F4F1FF] shadow-sm"
+                    ? "border-2 border-[#7B3FE4] bg-[#F4F1FF] shadow-sm"
                     : "border border-neutral-200 bg-white"
                 }`}
               >
                 <p
                   className={`text-sm font-semibold leading-snug ${
-                    step.highlight ? "text-[#3F2B96]" : "text-neutral-900"
+                    step.highlight ? "text-[#7B3FE4]" : "text-neutral-900"
                   }`}
                 >
                   {step.title}

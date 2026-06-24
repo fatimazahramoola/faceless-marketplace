@@ -13,8 +13,8 @@ export function RoadmapSection() {
       </p>
 
       <div className="mt-10 grid gap-6 md:grid-cols-2">
-        <div className="rounded-3xl border-2 border-[#3F2B96] bg-[#F4F1FF] p-6 sm:p-8">
-          <h3 className="text-lg font-bold text-[#3F2B96] sm:text-xl">
+        <div className="rounded-3xl border-2 border-[#7B3FE4] bg-[#F4F1FF] p-6 sm:p-8">
+          <h3 className="text-lg font-bold text-[#7B3FE4] sm:text-xl">
             Available at launch
           </h3>
           <ul className="mt-4 space-y-3 text-sm text-neutral-700 sm:text-base">

@@ -16,7 +16,7 @@ export function WaitlistButton({
 
   const variantClasses =
     variant === "primary"
-      ? "bg-[#3F2B96] text-white hover:opacity-90"
+      ? "bg-[#7B3FE4] text-white hover:opacity-90"
       : "border border-neutral-300 text-neutral-700 hover:bg-neutral-50";
 
   return (

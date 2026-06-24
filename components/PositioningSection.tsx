@@ -27,13 +27,13 @@ export function PositioningSection() {
             <div
               className={`w-full rounded-3xl p-6 sm:p-8 ${
                 column.highlight
-                  ? "border-2 border-[#3F2B96] bg-[#F4F1FF]"
+                  ? "border-2 border-[#7B3FE4] bg-[#F4F1FF]"
                   : "border border-neutral-200 bg-white"
               }`}
             >
               <h3
                 className={`text-lg font-bold sm:text-xl ${
-                  column.highlight ? "text-[#3F2B96]" : "text-neutral-900"
+                  column.highlight ? "text-[#7B3FE4]" : "text-neutral-900"
                 }`}
               >
                 {column.label}
@@ -48,7 +48,7 @@ export function PositioningSection() {
             </div>
             {index < MARKET_COMPARISON.length - 1 && (
               <span
-                className="py-1 text-2xl text-[#3F2B96] md:hidden"
+                className="py-1 text-2xl text-[#7B3FE4] md:hidden"
                 aria-hidden
               >
                 ↓
