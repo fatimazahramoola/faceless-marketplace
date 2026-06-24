@@ -3,8 +3,7 @@ import { SITE_NAME, SITE_TAGLINE } from "./constants";
 
 export const SITE_URL = "https://facelessmarketplace.co.za";
 
-/** Swap to "/og-image.png" when a dedicated 1200×630 asset is ready. */
-export const OG_IMAGE_PATH = "/logo.png";
+export const OG_IMAGE_PATH = "/og-image.png";
 
 const defaultOgImage = {
   url: OG_IMAGE_PATH,
@@ -31,6 +30,9 @@ export function createPageMetadata({
     title: title ?? SITE_NAME,
     description,
     metadataBase: new URL(SITE_URL),
+    alternates: {
+      canonical: path || "/",
+    },
     openGraph: {
       title: pageTitle,
       description,

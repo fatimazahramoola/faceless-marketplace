@@ -1,6 +1,6 @@
 export const SITE_NAME = "Faceless Marketplace";
 export const SITE_TAGLINE = "A trusted way to buy and sell online.";
-export const CONTACT_EMAIL = "fatimazahramoola@gmail.com";
+export const CONTACT_EMAIL = "hello@facelessmarketplace.co.za";
 
 export const BRAND_COLOR = "#7B3FE4";
 export const BRAND_ACCENT_BG = "#F4F1FF";

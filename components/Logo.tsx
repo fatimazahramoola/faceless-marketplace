@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 
 type LogoProps = {
   size?: "sm" | "md";
@@ -22,9 +23,12 @@ export function Logo({
 
   const content = (
     <div className="flex items-center gap-2 sm:gap-3">
-      <img
+      <Image
         src="/logo.png"
         alt="Faceless Marketplace"
+        width={2560}
+        height={2560}
+        priority={size === "md"}
         className={`${sizeClasses[size]} w-auto shrink-0`}
       />
       {showText && (
