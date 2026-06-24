@@ -1,4 +1,4 @@
-import { WAITLIST_MAILTO } from "@/lib/constants";
+import Link from "next/link";
 
 type WaitlistButtonProps = {
   variant?: "primary" | "secondary";
@@ -20,11 +20,8 @@ export function WaitlistButton({
       : "border border-neutral-300 text-neutral-700 hover:bg-neutral-50";
 
   return (
-    <a
-      href={WAITLIST_MAILTO}
-      className={`${baseClasses} ${variantClasses} ${className}`}
-    >
+    <Link href="/#waitlist" className={`${baseClasses} ${variantClasses} ${className}`}>
       {children}
-    </a>
+    </Link>
   );
 }

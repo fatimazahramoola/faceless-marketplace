@@ -1,4 +1,5 @@
-import { HowItWorksCard } from "@/components/HowItWorksCard";
+import { HeroTrustPanel } from "@/components/HeroTrustPanel";
+import { HowItWorksSection } from "@/components/HowItWorksSection";
 import { PositioningSection } from "@/components/PositioningSection";
 import { RoadmapSection } from "@/components/RoadmapSection";
 import { SectionContainer } from "@/components/SectionContainer";
@@ -6,6 +7,7 @@ import { WaitlistButton } from "@/components/WaitlistButton";
 import { WaitlistSection } from "@/components/WaitlistSection";
 import {
   HERO_BADGE,
+  HERO_CTA_TRUST_LINES,
   HERO_HEADLINE,
   HERO_SUBHEADING,
   HERO_TRUST_POINTS,
@@ -41,11 +43,17 @@ export default function Home() {
             <div className="mt-8 flex flex-col gap-3 sm:mt-10 sm:flex-row sm:flex-wrap sm:gap-4">
               <WaitlistButton />
               <a
-                href="#learn-more"
+                href="#how-it-works"
                 className="inline-flex min-h-11 w-full items-center justify-center rounded-2xl border border-neutral-300 px-8 py-4 font-semibold text-neutral-700 transition hover:bg-neutral-50 sm:w-auto"
               >
                 Learn More
               </a>
+            </div>
+
+            <div className="mt-4 flex flex-wrap gap-x-4 gap-y-1 text-xs text-neutral-500 sm:text-sm">
+              {HERO_CTA_TRUST_LINES.map((line) => (
+                <span key={line}>{line}</span>
+              ))}
             </div>
 
             <div className="mt-8 flex flex-wrap gap-x-4 gap-y-2 text-xs font-medium text-neutral-700 sm:mt-10 sm:gap-6 sm:text-sm">
@@ -55,13 +63,13 @@ export default function Home() {
             </div>
           </div>
 
-          <div>
-            <HowItWorksCard />
-          </div>
+          <HeroTrustPanel />
         </div>
       </SectionContainer>
 
-      <SectionContainer id="learn-more" className="py-12 sm:py-16">
+      <HowItWorksSection />
+
+      <SectionContainer id="learn-more" className="scroll-mt-20 py-12 sm:py-16">
         <h2 className="text-center text-3xl font-bold text-neutral-900 sm:text-4xl">
           {WHY_FACELESS_HEADING}
         </h2>

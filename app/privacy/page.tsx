@@ -49,8 +49,8 @@ export default function PrivacyPage() {
               <ul className="mt-3 list-disc space-y-2 pl-6">
                 <li>
                   <strong className="text-neutral-900">Contact information</strong>{" "}
-                  — such as your name and email address when you join our waitlist
-                  or contact us
+                  — such as your email address when you join our waitlist or
+                  contact us
                 </li>
                 <li>
                   <strong className="text-neutral-900">Usage data</strong> — such

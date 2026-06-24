@@ -6,8 +6,6 @@ export const BRAND_COLOR = "#3F2B96";
 export const BRAND_ACCENT_BG = "#F4F1FF";
 export const BRAND_ACCENT_BORDER = "#D9D1FF";
 
-export const WAITLIST_MAILTO = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent("Faceless Marketplace Waitlist")}`;
-
 export const NAV_LINKS = [
   { href: "/about", label: "About" },
   { href: "/faq", label: "FAQ" },
@@ -33,6 +31,65 @@ export const HERO_TRUST_POINTS = [
   "Seller Protection",
   "Secure Payments",
   "Dispute Resolution",
+] as const;
+
+export const HERO_CTA_TRUST_LINES = [
+  "Free to join.",
+  "No spam.",
+  "Launching in South Africa.",
+] as const;
+
+export const HERO_TRUST_PANEL_ITEMS = [
+  {
+    title: "Buyer protection",
+    description: "Never send money directly to a stranger again.",
+  },
+  {
+    title: "Seller protection",
+    description: "Know payment is verified before you ship.",
+  },
+  {
+    title: "Secure transactions",
+    description: "Faceless sits between both sides of every deal.",
+  },
+] as const;
+
+export const HOW_IT_WORKS_HEADING = "How Faceless Works";
+
+export const HOW_IT_WORKS_SUBHEADING =
+  "From listing to payout — a simple journey for buyers and sellers.";
+
+export const HOW_IT_WORKS_STEPS = [
+  {
+    step: 1,
+    title: "Seller lists an item",
+    subtitle: "List in minutes, no website required",
+    highlight: false,
+  },
+  {
+    step: 2,
+    title: "Buyer places an order",
+    subtitle: "Purchase through Faceless, not direct payment",
+    highlight: false,
+  },
+  {
+    step: 3,
+    title: "Faceless secures payment",
+    subtitle: "Funds held until delivery is confirmed",
+    highlight: true,
+  },
+  {
+    step: 4,
+    title: "Seller ships or delivers",
+    subtitle: "Payment already verified",
+    highlight: false,
+  },
+  {
+    step: 5,
+    title: "Seller gets paid",
+    subtitle: "Funds released after successful delivery",
+    highlight: false,
+  },
 ] as const;
 
 export const WHY_FACELESS_HEADING = "Why Faceless?";
@@ -84,6 +141,16 @@ export const ROADMAP_FUTURE = [
   "Marketplace search",
 ] as const;
 
+export const WAITLIST_SECTION_HEADING = "Be first to know";
+
+export const WAITLIST_SECTION_SUBHEADING =
+  "Join the waitlist to be notified when applications open.";
+
+export const WAITLIST_TRUST_LINES = [
+  "Launching in South Africa.",
+  "No spam. One email when we launch.",
+] as const;
+
 export const FAQ_ITEMS = [
   {
     question: "What is Faceless Marketplace?",
@@ -93,7 +160,7 @@ export const FAQ_ITEMS = [
   {
     question: "How does it work?",
     answer:
-      "The buyer pays Faceless, we hold the funds securely, the seller ships or delivers the item, and once the buyer confirms receipt, we release payment to the seller. If something goes wrong, our dispute process helps resolve it fairly.",
+      "A seller lists an item, a buyer places an order through Faceless, we secure the payment, the seller ships or delivers, and the seller gets paid once delivery is confirmed. It's a simple journey — with Faceless protecting both sides throughout.",
   },
   {
     question: "Why is it safer?",
@@ -103,7 +170,7 @@ export const FAQ_ITEMS = [
   {
     question: "When will it launch?",
     answer:
-      "We're currently in pre-launch and building the platform. Join our waitlist to be notified when Faceless Marketplace goes live in South Africa.",
+      "We're currently in pre-launch and building the platform in South Africa. Join the waitlist on our homepage to be notified when applications open.",
   },
   {
     question: "Who can sell?",
