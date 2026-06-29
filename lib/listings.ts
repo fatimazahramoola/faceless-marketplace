@@ -13,19 +13,59 @@ export function formatPrice(price: number): string {
   }).format(price);
 }
 
-export async function getActiveListings(): Promise<Listing[]> {
+type ActiveListingFilters = {
+  query?: string;
+  category?: string;
+  sort?: string;
+  page?: number;
+  pageSize?: number;
+};
+
+export async function getActiveListings(
+  filters: ActiveListingFilters = {},
+): Promise<{ listings: Listing[]; count: number; page: number; pageSize: number }> {
   const supabase = await createServerClient();
-  const { data, error } = await supabase
+  const pageSize = Math.min(Math.max(filters.pageSize ?? 12, 1), 24);
+  const page = Math.max(filters.page ?? 1, 1);
+  const from = (page - 1) * pageSize;
+  const to = from + pageSize - 1;
+
+  let query = supabase
     .from("listings")
-    .select("*, profiles:user_id(id, name, avatar_url, is_verified_seller, created_at, updated_at)")
-    .eq("status", "active")
-    .order("created_at", { ascending: false });
+    .select("*, profiles:user_id(id, name, avatar_url, is_verified_seller, created_at, updated_at)", {
+      count: "exact",
+    })
+    .eq("status", "active");
+
+  if (filters.query) {
+    const safeQuery = filters.query.replace(/[%_]/g, "");
+    query = query.or(`title.ilike.%${safeQuery}%,description.ilike.%${safeQuery}%`);
+  }
+
+  if (filters.category && filters.category !== "All") {
+    query = query.eq("category", filters.category);
+  }
+
+  if (filters.sort === "price-asc") {
+    query = query.order("price", { ascending: true });
+  } else if (filters.sort === "price-desc") {
+    query = query.order("price", { ascending: false });
+  } else {
+    query = query.order("created_at", { ascending: false });
+  }
+
+  const { data, error, count } = await query.range(from, to);
 
   if (error) {
     throw new Error(error.message);
   }
 
-  return data ?? [];
+  return {
+    listings: data ?? [],
+    count: count ?? 0,
+    page,
+    pageSize,
+  };
 }
 
 export async function getActiveListing(id: string): Promise<Listing | null> {
