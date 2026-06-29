@@ -21,6 +21,8 @@ export const NAV_LINKS = [
   { href: "/listings", label: "Browse" },
   { href: "/sell", label: "Sell" },
   { href: "/dashboard", label: "Dashboard" },
+  { href: "/buyer", label: "Buyer" },
+  { href: "/messages", label: "Messages" },
   { href: "/about", label: "About" },
   { href: "/faq", label: "FAQ" },
 ] as const;
@@ -28,6 +30,8 @@ export const NAV_LINKS = [
 export const FOOTER_LINKS = [
   { href: "/listings", label: "Browse" },
   { href: "/sell", label: "Sell" },
+  { href: "/buyer", label: "Buyer Dashboard" },
+  { href: "/notifications", label: "Notifications" },
   { href: "/about", label: "About" },
   { href: "/faq", label: "FAQ" },
   { href: "/privacy", label: "Privacy" },

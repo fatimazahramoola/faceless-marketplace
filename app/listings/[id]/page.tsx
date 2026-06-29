@@ -64,9 +64,35 @@ export default async function ListingDetailPage({
   }
 
   const images = listing.image_urls.length > 0 ? listing.image_urls : [undefined];
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: listing.title,
+    description: listing.description,
+    image: listing.image_urls,
+    category: listing.category,
+    offers: {
+      "@type": "Offer",
+      priceCurrency: "ZAR",
+      price: listing.price,
+      availability:
+        listing.status === "active"
+          ? "https://schema.org/InStock"
+          : "https://schema.org/OutOfStock",
+      url: `https://facelessmarketplace.co.za/listings/${listing.id}`,
+    },
+    seller: {
+      "@type": "Person",
+      name: listing.profiles?.name ?? "Faceless seller",
+    },
+  };
 
   return (
     <main className="bg-white">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+      />
       <SectionContainer className="py-12 sm:py-20">
         <Link
           href="/listings"

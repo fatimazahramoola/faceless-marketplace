@@ -2,13 +2,13 @@
 
 The marketplace MVP expects a public Supabase Storage bucket named `listing-images`.
 
-The migration `003_marketplace_listings.sql` creates or updates that bucket and adds anonymous upload/read policies for MVP testing. If you manage storage manually in the Supabase dashboard, mirror these settings:
+The migration `003_marketplace_listings.sql` creates or updates that bucket. The later migration `004_auth_profiles_and_listing_ownership.sql` replaces anonymous uploads with authenticated user-folder uploads. If you manage storage manually in the Supabase dashboard, mirror these settings:
 
 - Bucket name: `listing-images`
 - Public bucket: enabled
 - File size limit: 5 MB
 - Allowed MIME types: `image/jpeg`, `image/png`, `image/webp`
-- Anonymous users can upload objects to this bucket
+- Authenticated users can upload objects under their own user-id folder
 - Anonymous users can read objects from this bucket
 
-This is intentionally permissive for the no-auth MVP. Before production, replace anonymous uploads with authenticated seller ownership and moderation rules.
+Before production, add moderation and image scanning if listing uploads become high volume.
