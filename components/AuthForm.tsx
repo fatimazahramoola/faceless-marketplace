@@ -6,6 +6,9 @@ import { useSearchParams } from "next/navigation";
 import { logIn, signInWithGoogle, signUp } from "@/app/actions/auth";
 import type { AuthFormState } from "@/lib/types";
 import { EyeIcon, EyeSlashIcon, CheckIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import { Button } from "@/components/ui/Button";
+import { FormLabel } from "@/components/ui/FormLabel";
+import { Input } from "@/components/ui/Input";
 
 type AuthFormProps = { mode: "login" | "signup" };
 
@@ -24,6 +27,7 @@ export function AuthForm({ mode }: AuthFormProps) {
   const [password, setPassword] = useState("");
   const [confirm, setConfirm] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const passwordMatch = confirm.length === 0 || password === confirm;
   const reqLength = password.length >= 8;
@@ -58,10 +62,8 @@ export function AuthForm({ mode }: AuthFormProps) {
         )}
 
         <div>
-          <label htmlFor="email" className="block text-sm font-semibold text-neutral-900">
-            Email
-          </label>
-          <input
+          <FormLabel htmlFor="email">Email</FormLabel>
+          <Input
             id="email"
             name="email"
             type="email"
@@ -69,16 +71,23 @@ export function AuthForm({ mode }: AuthFormProps) {
             onChange={(e) => setEmail(e.target.value)}
             autoComplete="email"
             required
-            className="mt-2 min-h-11 w-full rounded-xl border border-neutral-300 px-4 text-base focus:border-[#7B3FE4] focus:outline-none focus:ring-2 focus:ring-[#7B3FE4]/20"
           />
         </div>
 
         <div>
-          <label htmlFor="password" className="block text-sm font-semibold text-neutral-900">
-            Password
-          </label>
+          <div className="flex items-center justify-between gap-4">
+            <FormLabel htmlFor="password">Password</FormLabel>
+            {!isSignup ? (
+              <Link
+                href="/forgot-password"
+                className="text-sm font-semibold text-[#7B3FE4] hover:text-[#5C33C6] focus:outline-none focus:ring-2 focus:ring-[#7B3FE4]/40"
+              >
+                Forgot password?
+              </Link>
+            ) : null}
+          </div>
           <div className="mt-2 relative">
-            <input
+            <Input
               id="password"
               name="password"
               value={password}
@@ -87,7 +96,6 @@ export function AuthForm({ mode }: AuthFormProps) {
               autoComplete={isSignup ? "new-password" : "current-password"}
               required
               minLength={8}
-              className="min-h-11 w-full rounded-xl border border-neutral-300 px-4 text-base focus:border-[#7B3FE4] focus:outline-none focus:ring-2 focus:ring-[#7B3FE4]/20"
             />
             <button
               type="button"
@@ -107,17 +115,26 @@ export function AuthForm({ mode }: AuthFormProps) {
               {confirm.length > 0 && <span className={"text-sm " + (passwordMatch ? "text-green-600" : "text-red-600")}>{passwordMatch ? "Matched" : "Not matching"}</span>}
             </label>
 
-            <input
-              id="confirm_password"
-              name="confirm_password"
-              value={confirm}
-              onChange={(e) => setConfirm(e.target.value)}
-              type={showPassword ? "text" : "password"}
-              autoComplete="new-password"
-              required={isSignup}
-              minLength={8}
-              className="mt-2 min-h-11 w-full rounded-xl border border-neutral-300 px-4 text-base focus:border-[#7B3FE4] focus:outline-none focus:ring-2 focus:ring-[#7B3FE4]/20"
-            />
+            <div className="mt-2 relative">
+              <Input
+                id="confirm_password"
+                name="confirm_password"
+                value={confirm}
+                onChange={(e) => setConfirm(e.target.value)}
+                type={showConfirmPassword ? "text" : "password"}
+                autoComplete="new-password"
+                required={isSignup}
+                minLength={8}
+              />
+              <button
+                type="button"
+                onClick={() => setShowConfirmPassword((s) => !s)}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-500"
+                aria-label={showConfirmPassword ? "Hide confirm password" : "Show confirm password"}
+              >
+                {showConfirmPassword ? <EyeSlashIcon className="h-5 w-5" /> : <EyeIcon className="h-5 w-5" />}
+              </button>
+            </div>
 
             <div className="mt-2">
               <ul className="space-y-1">
@@ -145,16 +162,20 @@ export function AuthForm({ mode }: AuthFormProps) {
           </>
         )}
 
-        <button type="submit" disabled={pending || (isSignup && (!passwordMatch || !requirementsMet || !name.trim() || !email.trim()))} className="inline-flex min-h-11 w-full items-center justify-center rounded-xl bg-[#7B3FE4] px-6 py-3 text-base font-semibold text-white transition hover:opacity-90 disabled:opacity-60">
+        <Button
+          type="submit"
+          disabled={pending || (isSignup && (!passwordMatch || !requirementsMet || !name.trim() || !email.trim()))}
+          className="w-full"
+        >
           {pending ? "Please wait..." : isSignup ? "Create account" : "Log in"}
-        </button>
+        </Button>
       </form>
 
       <form action={signInWithGoogle} className="mt-4">
         <input type="hidden" name="redirectTo" value={redirectTo ?? ""} />
-        <button type="submit" className="inline-flex min-h-11 w-full items-center justify-center rounded-xl border border-neutral-300 px-6 py-3 text-base font-semibold text-neutral-800 transition hover:bg-neutral-50">
+        <Button type="submit" variant="secondary" className="w-full">
           Continue with Google
-        </button>
+        </Button>
       </form>
 
       <p className="mt-5 text-center text-sm text-neutral-600">

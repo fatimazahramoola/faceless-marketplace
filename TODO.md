@@ -153,6 +153,7 @@ Buyer Dashboard
 * [ ] Improve button styles
 * [ ] Improve form styling
 * [ ] Improve cards
+* [ ] Add shared input prefix support for price/currency fields
 * [ ] Improve shadows
 * [ ] Improve borders
 * [ ] Improve hover animations

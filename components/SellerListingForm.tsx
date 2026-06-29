@@ -4,6 +4,11 @@ import { useActionState, useMemo, useRef, useState } from "react";
 import { createListing } from "@/app/actions/listings";
 import { LISTING_CATEGORIES } from "@/lib/constants";
 import type { ListingFormState } from "@/lib/types";
+import { Button } from "@/components/ui/Button";
+import { FormLabel } from "@/components/ui/FormLabel";
+import { Input } from "@/components/ui/Input";
+import { Select } from "@/components/ui/Select";
+import { TextArea } from "@/components/ui/TextArea";
 
 const initialState: ListingFormState = {
   success: false,
@@ -35,13 +40,8 @@ export function SellerListingForm() {
   return (
     <form action={formAction} className="space-y-6">
       <div>
-        <label
-          htmlFor="title"
-          className="block text-sm font-semibold text-neutral-900"
-        >
-          Listing title
-        </label>
-        <input
+        <FormLabel htmlFor="title">Listing title</FormLabel>
+        <Input
           id="title"
           name="title"
           type="text"
@@ -49,18 +49,12 @@ export function SellerListingForm() {
           minLength={3}
           maxLength={120}
           placeholder="Vintage denim jacket"
-          className="mt-2 min-h-11 w-full rounded-xl border border-neutral-300 bg-white px-4 text-base text-neutral-900 placeholder:text-neutral-400 focus:border-[#7B3FE4] focus:outline-none focus:ring-2 focus:ring-[#7B3FE4]/20"
         />
       </div>
 
       <div>
-        <label
-          htmlFor="description"
-          className="block text-sm font-semibold text-neutral-900"
-        >
-          Description
-        </label>
-        <textarea
+        <FormLabel htmlFor="description">Description</FormLabel>
+        <TextArea
           id="description"
           name="description"
           required
@@ -68,44 +62,32 @@ export function SellerListingForm() {
           maxLength={2000}
           rows={6}
           placeholder="Describe the item condition, size, colour, and anything buyers should know."
-          className="mt-2 w-full rounded-xl border border-neutral-300 bg-white px-4 py-3 text-base text-neutral-900 placeholder:text-neutral-400 focus:border-[#7B3FE4] focus:outline-none focus:ring-2 focus:ring-[#7B3FE4]/20"
         />
       </div>
 
       <div>
-        <label
-          htmlFor="category"
-          className="block text-sm font-semibold text-neutral-900"
-        >
-          Category
-        </label>
-        <select
+        <FormLabel htmlFor="category">Category</FormLabel>
+        <Select
           id="category"
           name="category"
           required
           defaultValue="Other"
-          className="mt-2 min-h-11 w-full rounded-xl border border-neutral-300 bg-white px-4 text-base text-neutral-900 focus:border-[#7B3FE4] focus:outline-none focus:ring-2 focus:ring-[#7B3FE4]/20"
         >
           {LISTING_CATEGORIES.map((category) => (
             <option key={category} value={category}>
               {category}
             </option>
           ))}
-        </select>
+        </Select>
       </div>
 
       <div>
-        <label
-          htmlFor="price"
-          className="block text-sm font-semibold text-neutral-900"
-        >
-          Price
-        </label>
+        <FormLabel htmlFor="price">Price</FormLabel>
         <div className="mt-2 flex rounded-xl border border-neutral-300 bg-white focus-within:border-[#7B3FE4] focus-within:ring-2 focus-within:ring-[#7B3FE4]/20">
           <span className="flex min-h-11 items-center border-r border-neutral-200 px-4 text-sm font-semibold text-neutral-500">
             R
           </span>
-          <input
+          <Input
             id="price"
             name="price"
             type="number"
@@ -113,7 +95,7 @@ export function SellerListingForm() {
             min="1"
             step="0.01"
             placeholder="450.00"
-            className="min-h-11 w-full rounded-r-xl px-4 text-base text-neutral-900 placeholder:text-neutral-400 focus:outline-none"
+            className="rounded-r-xl"
           />
         </div>
       </div>
@@ -188,13 +170,9 @@ export function SellerListingForm() {
         </p>
       )}
 
-      <button
-        type="submit"
-        disabled={pending}
-        className="inline-flex min-h-11 w-full items-center justify-center rounded-xl bg-[#7B3FE4] px-6 py-3 text-base font-semibold text-white transition hover:opacity-90 disabled:opacity-60 sm:w-auto"
-      >
+      <Button type="submit" disabled={pending} className="w-full sm:w-auto">
         {pending ? "Uploading images..." : "Create listing"}
-      </button>
+      </Button>
     </form>
   );
 }

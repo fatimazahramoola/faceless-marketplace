@@ -5,6 +5,7 @@ import { RoadmapSection } from "@/components/RoadmapSection";
 import { SectionContainer } from "@/components/SectionContainer";
 import { WaitlistButton } from "@/components/WaitlistButton";
 import { WaitlistSection } from "@/components/WaitlistSection";
+import { Badge } from "@/components/ui/Badge";
 import {
   HERO_BADGE,
   HERO_CTA_TRUST_LINES,
@@ -27,9 +28,7 @@ export default function Home() {
       <SectionContainer className="flex min-h-0 items-center py-12 lg:min-h-[calc(100vh-88px)] lg:py-0">
         <div className="grid w-full items-center gap-10 lg:grid-cols-2 lg:gap-12">
           <div>
-            <div className="mb-6 inline-flex rounded-full bg-[#F4F1FF] px-4 py-2 text-sm font-medium text-[#7B3FE4]">
-              {HERO_BADGE}
-            </div>
+            <Badge>{HERO_BADGE}</Badge>
 
             <h1 className="text-4xl font-bold leading-tight text-neutral-900 sm:text-5xl md:text-6xl lg:text-7xl">
               {HERO_HEADLINE}

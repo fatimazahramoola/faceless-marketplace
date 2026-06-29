@@ -11,6 +11,12 @@ import { ListingCard } from "@/components/ListingCard";
 import { ListingImage } from "@/components/ListingImage";
 import { SectionContainer } from "@/components/SectionContainer";
 import { ShareButton } from "@/components/ShareButton";
+import { Badge } from "@/components/ui/Badge";
+import { Button } from "@/components/ui/Button";
+import { Card } from "@/components/ui/Card";
+import { LinkButton } from "@/components/ui/LinkButton";
+import { FormLabel } from "@/components/ui/FormLabel";
+import { Input } from "@/components/ui/Input";
 import {
   formatPrice,
   getActiveListing,
@@ -94,12 +100,9 @@ export default async function ListingDetailPage({
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
       <SectionContainer className="py-12 sm:py-20">
-        <Link
-          href="/listings"
-          className="inline-flex min-h-11 items-center text-sm font-semibold text-[#7B3FE4] hover:underline"
-        >
+        <LinkButton href="/listings" variant="ghost" className="text-sm font-semibold text-[#7B3FE4] hover:underline">
           Back to listings
-        </Link>
+        </LinkButton>
 
         <div className="mt-6 grid gap-10 lg:grid-cols-[1.15fr_0.85fr] lg:gap-14">
           <div className="grid gap-4 sm:grid-cols-2">
@@ -115,10 +118,8 @@ export default async function ListingDetailPage({
           </div>
 
           <div>
-            <div className="mb-5 inline-flex rounded-full bg-[#F4F1FF] px-4 py-2 text-sm font-medium text-[#7B3FE4]">
-              Active listing
-            </div>
-            <h1 className="text-3xl font-bold text-neutral-900 sm:text-4xl md:text-5xl">
+            <Badge>Active listing</Badge>
+            <h1 className="mt-4 text-3xl font-bold text-neutral-900 sm:text-4xl md:text-5xl">
               {listing.title}
             </h1>
             <p className="mt-5 text-3xl font-bold text-[#7B3FE4]">
@@ -128,7 +129,7 @@ export default async function ListingDetailPage({
               {listing.description}
             </p>
 
-            <div className="mt-6 rounded-3xl border border-neutral-200 p-5">
+            <Card className="mt-6 p-5">
               <p className="text-sm font-semibold text-neutral-500">Seller</p>
               <Link
                 href={`/users/${listing.user_id}`}
@@ -145,36 +146,33 @@ export default async function ListingDetailPage({
                 Buyer protection and seller protection are built into the
                 Faceless checkout workflow.
               </p>
-            </div>
+            </Card>
 
             <div className="mt-8 flex flex-wrap gap-3">
-              <Link
-                href={`/checkout/${listing.id}`}
-                className="inline-flex min-h-11 w-full items-center justify-center rounded-xl bg-[#7B3FE4] px-6 py-3 text-base font-semibold text-white transition hover:opacity-90 sm:w-auto"
-              >
+              <LinkButton href={`/checkout/${listing.id}`} className="min-h-11 w-full sm:w-auto">
                 Buy Now
-              </Link>
+              </LinkButton>
               {user && user.id !== listing.user_id && (
                 <form action={saved ? unsaveListing : saveListing}>
                   <input type="hidden" name="listing_id" value={listing.id} />
-                  <button className="inline-flex min-h-11 items-center justify-center rounded-xl border border-neutral-300 px-4 text-sm font-semibold text-neutral-700 transition hover:bg-neutral-50">
+                  <Button type="submit" variant="secondary">
                     {saved ? "Saved" : "Save"}
-                  </button>
+                  </Button>
                 </form>
               )}
               {user && user.id !== listing.user_id && (
                 <form action={startConversation}>
                   <input type="hidden" name="listing_id" value={listing.id} />
                   <input type="hidden" name="seller_id" value={listing.user_id} />
-                  <button className="inline-flex min-h-11 items-center justify-center rounded-xl border border-neutral-300 px-4 text-sm font-semibold text-neutral-700 transition hover:bg-neutral-50">
+                  <Button type="submit" variant="secondary">
                     Message seller
-                  </button>
+                  </Button>
                 </form>
               )}
               <ShareButton title={listing.title} />
             </div>
 
-            <div className="mt-8 rounded-3xl border border-[#D9D1FF] bg-[#F4F1FF] p-6">
+            <Card variant="subtle" className="mt-8 p-6">
               <h2 className="font-bold text-neutral-900">
                 Faceless protection preview
               </h2>
@@ -183,28 +181,23 @@ export default async function ListingDetailPage({
                 marketplace will add verified payments, seller controls, and
                 delivery status before launch.
               </p>
-            </div>
+            </Card>
 
             {user && (
               <form action={reportListing} className="mt-6 space-y-3">
                 <input type="hidden" name="listing_id" value={listing.id} />
-                <label
-                  htmlFor="reason"
-                  className="block text-sm font-semibold text-neutral-900"
-                >
-                  Report listing
-                </label>
+                <FormLabel htmlFor="reason">Report listing</FormLabel>
                 <div className="flex flex-col gap-2 sm:flex-row">
-                  <input
+                  <Input
                     id="reason"
                     name="reason"
                     minLength={5}
                     placeholder="Tell us what looks unsafe"
-                    className="min-h-11 flex-1 rounded-xl border border-neutral-300 px-4 focus:border-[#7B3FE4] focus:outline-none focus:ring-2 focus:ring-[#7B3FE4]/20"
+                    className="flex-1"
                   />
-                  <button className="min-h-11 rounded-xl border border-red-200 px-4 text-sm font-semibold text-red-700 hover:bg-red-50">
+                  <Button type="submit" variant="danger">
                     Report
-                  </button>
+                  </Button>
                 </div>
               </form>
             )}
