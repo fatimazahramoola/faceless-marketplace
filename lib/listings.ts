@@ -32,7 +32,7 @@ export async function getActiveListings(
 
   let query = supabase
     .from("listings")
-    .select("*, profiles:user_id(id, name, avatar_url, is_verified_seller, created_at, updated_at)", {
+    .select("*", {
       count: "exact",
     })
     .eq("status", "active");
@@ -72,7 +72,7 @@ export async function getActiveListing(id: string): Promise<Listing | null> {
   const supabase = await createServerClient();
   const { data, error } = await supabase
     .from("listings")
-    .select("*, profiles:user_id(id, name, avatar_url, is_verified_seller, created_at, updated_at)")
+    .select("*")
     .eq("id", id)
     .eq("status", "active")
     .single();
@@ -92,7 +92,7 @@ export async function getUserListings(userId: string): Promise<Listing[]> {
   const supabase = await createServerClient();
   const { data, error } = await supabase
     .from("listings")
-    .select("*, profiles:user_id(id, name, avatar_url, is_verified_seller, created_at, updated_at)")
+    .select("*")
     .eq("user_id", userId)
     .order("created_at", { ascending: false });
 
@@ -130,7 +130,7 @@ export async function getRelatedListings(listing: Listing): Promise<Listing[]> {
   const supabase = await createServerClient();
   const { data, error } = await supabase
     .from("listings")
-    .select("*, profiles:user_id(id, name, avatar_url, is_verified_seller, created_at, updated_at)")
+    .select("*")
     .eq("status", "active")
     .eq("category", listing.category)
     .neq("id", listing.id)
