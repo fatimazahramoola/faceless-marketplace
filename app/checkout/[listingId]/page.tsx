@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { createMockOrder } from "@/app/actions/marketplace";
 import { ListingImage } from "@/components/ListingImage";
 import { SectionContainer } from "@/components/SectionContainer";
 import { formatPrice, getActiveListing } from "@/lib/listings";
@@ -93,12 +94,28 @@ export default async function CheckoutPage({ params }: CheckoutPageProps) {
             </div>
 
             <button
-              type="button"
-              disabled
-              className="mt-8 inline-flex min-h-11 w-full items-center justify-center rounded-xl bg-neutral-300 px-6 py-3 text-base font-semibold text-neutral-700 sm:w-auto"
+              form="checkout-form"
+              className="mt-8 inline-flex min-h-11 w-full items-center justify-center rounded-xl bg-[#7B3FE4] px-6 py-3 text-base font-semibold text-white transition hover:opacity-90 sm:w-auto"
             >
-              Checkout coming soon
+              Complete test payment
             </button>
+            <form id="checkout-form" action={createMockOrder} className="mt-6">
+              <input type="hidden" name="listing_id" value={listing.id} />
+              <input type="hidden" name="seller_id" value={listing.user_id} />
+              <input type="hidden" name="amount" value={listing.price} />
+              <label
+                htmlFor="buyer_note"
+                className="block text-sm font-semibold text-neutral-900"
+              >
+                Note to seller
+              </label>
+              <textarea
+                id="buyer_note"
+                name="buyer_note"
+                rows={3}
+                className="mt-2 w-full rounded-xl border border-neutral-300 px-4 py-3 focus:border-[#7B3FE4] focus:outline-none focus:ring-2 focus:ring-[#7B3FE4]/20"
+              />
+            </form>
           </div>
         </div>
       </SectionContainer>

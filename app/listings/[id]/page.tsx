@@ -1,9 +1,24 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import {
+  reportListing,
+  saveListing,
+  startConversation,
+  unsaveListing,
+  recordRecentlyViewed,
+} from "@/app/actions/marketplace";
+import { ListingCard } from "@/components/ListingCard";
 import { ListingImage } from "@/components/ListingImage";
 import { SectionContainer } from "@/components/SectionContainer";
-import { formatPrice, getActiveListing } from "@/lib/listings";
+import { ShareButton } from "@/components/ShareButton";
+import {
+  formatPrice,
+  getActiveListing,
+  getRelatedListings,
+} from "@/lib/listings";
+import { isListingSaved } from "@/lib/marketplace";
 import { createPageMetadata } from "@/lib/metadata";
+import { getCurrentUser } from "@/lib/supabase/server";
 
 type ListingDetailPageProps = {
   params: Promise<{
@@ -39,6 +54,13 @@ export default async function ListingDetailPage({
 
   if (!listing) {
     notFound();
+  }
+
+  const user = await getCurrentUser();
+  const saved = user ? await isListingSaved(user.id, listing.id) : false;
+  const relatedListings = await getRelatedListings(listing);
+  if (user) {
+    await recordRecentlyViewed(user.id, listing.id);
   }
 
   const images = listing.image_urls.length > 0 ? listing.image_urls : [undefined];
@@ -80,12 +102,51 @@ export default async function ListingDetailPage({
               {listing.description}
             </p>
 
-            <Link
-              href={`/checkout/${listing.id}`}
-              className="mt-8 inline-flex min-h-11 w-full items-center justify-center rounded-xl bg-[#7B3FE4] px-6 py-3 text-base font-semibold text-white transition hover:opacity-90 sm:w-auto"
-            >
-              Buy Now
-            </Link>
+            <div className="mt-6 rounded-3xl border border-neutral-200 p-5">
+              <p className="text-sm font-semibold text-neutral-500">Seller</p>
+              <Link
+                href={`/users/${listing.user_id}`}
+                className="mt-2 inline-flex items-center gap-2 font-bold text-neutral-900 hover:text-[#7B3FE4]"
+              >
+                {listing.profiles?.name ?? "Faceless seller"}
+                {listing.profiles?.is_verified_seller && (
+                  <span className="rounded-full bg-[#F4F1FF] px-2 py-1 text-xs text-[#7B3FE4]">
+                    Verified seller
+                  </span>
+                )}
+              </Link>
+              <p className="mt-3 text-sm text-neutral-600">
+                Buyer protection and seller protection are built into the
+                Faceless checkout workflow.
+              </p>
+            </div>
+
+            <div className="mt-8 flex flex-wrap gap-3">
+              <Link
+                href={`/checkout/${listing.id}`}
+                className="inline-flex min-h-11 w-full items-center justify-center rounded-xl bg-[#7B3FE4] px-6 py-3 text-base font-semibold text-white transition hover:opacity-90 sm:w-auto"
+              >
+                Buy Now
+              </Link>
+              {user && user.id !== listing.user_id && (
+                <form action={saved ? unsaveListing : saveListing}>
+                  <input type="hidden" name="listing_id" value={listing.id} />
+                  <button className="inline-flex min-h-11 items-center justify-center rounded-xl border border-neutral-300 px-4 text-sm font-semibold text-neutral-700 transition hover:bg-neutral-50">
+                    {saved ? "Saved" : "Save"}
+                  </button>
+                </form>
+              )}
+              {user && user.id !== listing.user_id && (
+                <form action={startConversation}>
+                  <input type="hidden" name="listing_id" value={listing.id} />
+                  <input type="hidden" name="seller_id" value={listing.user_id} />
+                  <button className="inline-flex min-h-11 items-center justify-center rounded-xl border border-neutral-300 px-4 text-sm font-semibold text-neutral-700 transition hover:bg-neutral-50">
+                    Message seller
+                  </button>
+                </form>
+              )}
+              <ShareButton title={listing.title} />
+            </div>
 
             <div className="mt-8 rounded-3xl border border-[#D9D1FF] bg-[#F4F1FF] p-6">
               <h2 className="font-bold text-neutral-900">
@@ -97,8 +158,45 @@ export default async function ListingDetailPage({
                 delivery status before launch.
               </p>
             </div>
+
+            {user && (
+              <form action={reportListing} className="mt-6 space-y-3">
+                <input type="hidden" name="listing_id" value={listing.id} />
+                <label
+                  htmlFor="reason"
+                  className="block text-sm font-semibold text-neutral-900"
+                >
+                  Report listing
+                </label>
+                <div className="flex flex-col gap-2 sm:flex-row">
+                  <input
+                    id="reason"
+                    name="reason"
+                    minLength={5}
+                    placeholder="Tell us what looks unsafe"
+                    className="min-h-11 flex-1 rounded-xl border border-neutral-300 px-4 focus:border-[#7B3FE4] focus:outline-none focus:ring-2 focus:ring-[#7B3FE4]/20"
+                  />
+                  <button className="min-h-11 rounded-xl border border-red-200 px-4 text-sm font-semibold text-red-700 hover:bg-red-50">
+                    Report
+                  </button>
+                </div>
+              </form>
+            )}
           </div>
         </div>
+
+        {relatedListings.length > 0 && (
+          <section className="mt-14">
+            <h2 className="text-2xl font-bold text-neutral-900">
+              Related listings
+            </h2>
+            <div className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+              {relatedListings.map((related) => (
+                <ListingCard key={related.id} listing={related} />
+              ))}
+            </div>
+          </section>
+        )}
       </SectionContainer>
     </main>
   );

@@ -65,3 +65,63 @@ export type Profile = {
   created_at: string;
   updated_at: string;
 };
+
+export type OrderStatus =
+  | "pending"
+  | "paid"
+  | "shipped"
+  | "delivered"
+  | "completed"
+  | "cancelled";
+
+export type Order = {
+  id: string;
+  listing_id: string;
+  buyer_id: string;
+  seller_id: string;
+  status: OrderStatus;
+  amount: number;
+  buyer_note: string | null;
+  created_at: string;
+  updated_at: string;
+  listings?: Listing | null;
+};
+
+export type Notification = {
+  id: string;
+  user_id: string;
+  title: string;
+  body: string;
+  read_at: string | null;
+  created_at: string;
+};
+
+export type Conversation = {
+  id: string;
+  listing_id: string;
+  buyer_id: string;
+  seller_id: string;
+  created_at: string;
+  updated_at: string;
+  listings?: Listing | null;
+  messages?: Message[];
+};
+
+export type Message = {
+  id: string;
+  conversation_id: string;
+  sender_id: string;
+  body: string;
+  created_at: string;
+};
+
+export type Review = {
+  id: string;
+  reviewer_id: string;
+  seller_id: string;
+  order_id: string | null;
+  rating: number;
+  comment: string;
+  created_at: string;
+  profiles?: Profile | null;
+};

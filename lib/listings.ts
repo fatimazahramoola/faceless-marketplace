@@ -126,6 +126,23 @@ export async function getUserListing(
   return data;
 }
 
+export async function getRelatedListings(listing: Listing): Promise<Listing[]> {
+  const supabase = await createServerClient();
+  const { data, error } = await supabase
+    .from("listings")
+    .select("*, profiles:user_id(id, name, avatar_url, is_verified_seller, created_at, updated_at)")
+    .eq("status", "active")
+    .eq("category", listing.category)
+    .neq("id", listing.id)
+    .limit(4);
+
+  if (error) {
+    return [];
+  }
+
+  return data ?? [];
+}
+
 export function groupListingsByStatus(listings: Listing[]) {
   const statuses: ListingStatus[] = ["active", "sold", "draft", "archived"];
 
