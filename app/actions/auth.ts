@@ -17,6 +17,7 @@ type CredentialResult =
 function readCredentials(formData: FormData): CredentialResult {
   const email = String(formData.get("email") || "").trim().toLowerCase();
   const password = String(formData.get("password") || "");
+  const confirm = String(formData.get("confirm_password") || "");
   const name = String(formData.get("name") || "").trim();
 
   if (!email || !email.includes("@")) {
@@ -25,6 +26,15 @@ function readCredentials(formData: FormData): CredentialResult {
 
   if (password.length < 8) {
     return { error: "Password must be at least 8 characters." };
+  }
+
+  if (confirm && password !== confirm) {
+    return { error: "Passwords do not match." };
+  }
+
+  // Basic password strength: must include a letter and a number
+  if (!/[A-Za-z]/.test(password) || !/[0-9]/.test(password)) {
+    return { error: "Password must include letters and numbers." };
   }
 
   return { email, password, name };
@@ -67,6 +77,7 @@ export async function logIn(
   formData: FormData,
 ): Promise<AuthFormState> {
   const credentials = readCredentials(formData);
+  const redirectTo = String(formData.get("redirectTo") || "");
 
   if ("error" in credentials) {
     return { success: false, message: credentials.error };
@@ -82,15 +93,30 @@ export async function logIn(
     return { success: false, message: error.message };
   }
 
+  // Safe redirect: allow absolute origin match or root-relative paths.
+  if (redirectTo) {
+    try {
+      const url = new URL(redirectTo, await getOrigin());
+      const origin = await getOrigin();
+      if (url.origin === origin) {
+        redirect(url.pathname + url.search + url.hash);
+      }
+    } catch {
+      // fall through to default
+    }
+  }
+
   redirect("/dashboard");
 }
 
-export async function signInWithGoogle() {
+export async function signInWithGoogle(formData?: FormData) {
+  const redirectTo = formData ? String(formData.get("redirectTo") || "") : "";
   const supabase = await createServerClient();
+  const redirectBase = `${await getOrigin()}/auth/callback`;
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider: "google",
     options: {
-      redirectTo: `${await getOrigin()}/auth/callback`,
+      redirectTo: redirectBase,
     },
   });
 
@@ -98,7 +124,12 @@ export async function signInWithGoogle() {
     redirect("/login?error=google");
   }
 
-  redirect(data.url);
+  // Attach the original redirectTo as a query param so callback can continue
+  if (data.url) {
+    const url = new URL(data.url);
+    if (redirectTo) url.searchParams.set("redirectTo", redirectTo);
+    redirect(url.toString());
+  }
 }
 
 export async function logOut() {
