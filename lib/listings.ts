@@ -14,10 +14,10 @@ export function formatPrice(price: number): string {
 }
 
 export async function getActiveListings(): Promise<Listing[]> {
-  const supabase = createServerClient();
+  const supabase = await createServerClient();
   const { data, error } = await supabase
     .from("listings")
-    .select("*")
+    .select("*, profiles:user_id(id, name, avatar_url, is_verified_seller, created_at, updated_at)")
     .eq("status", "active")
     .order("created_at", { ascending: false });
 
@@ -29,10 +29,10 @@ export async function getActiveListings(): Promise<Listing[]> {
 }
 
 export async function getActiveListing(id: string): Promise<Listing | null> {
-  const supabase = createServerClient();
+  const supabase = await createServerClient();
   const { data, error } = await supabase
     .from("listings")
-    .select("*")
+    .select("*, profiles:user_id(id, name, avatar_url, is_verified_seller, created_at, updated_at)")
     .eq("id", id)
     .eq("status", "active")
     .single();
@@ -52,7 +52,9 @@ export function validateListingInput(input: {
   title: string;
   description: string;
   price: string;
+  category: string;
   images: File[];
+  requireImages?: boolean;
 }): string | null {
   if (input.title.trim().length < 3) {
     return "Please enter a title with at least 3 characters.";
@@ -67,7 +69,11 @@ export function validateListingInput(input: {
     return "Please enter a valid price.";
   }
 
-  if (input.images.length === 0) {
+  if (!input.category.trim()) {
+    return "Please choose a category.";
+  }
+
+  if (input.requireImages !== false && input.images.length === 0) {
     return "Please upload at least one product image.";
   }
 

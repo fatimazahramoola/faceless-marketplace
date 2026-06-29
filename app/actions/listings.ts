@@ -5,7 +5,7 @@ import {
   LISTING_IMAGE_BUCKET,
   validateListingInput,
 } from "@/lib/listings";
-import { createServerClient } from "@/lib/supabase/server";
+import { createServerClient, requireUser } from "@/lib/supabase/server";
 import type { ListingFormState } from "@/lib/types";
 
 const initialError: ListingFormState = {
@@ -32,6 +32,7 @@ export async function createListing(
   const title = String(formData.get("title") || "").trim();
   const description = String(formData.get("description") || "").trim();
   const price = String(formData.get("price") || "").trim();
+  const category = String(formData.get("category") || "").trim();
   const images = formData
     .getAll("images")
     .filter((value): value is File => value instanceof File && value.size > 0);
@@ -40,6 +41,7 @@ export async function createListing(
     title,
     description,
     price,
+    category,
     images,
   });
 
@@ -47,14 +49,15 @@ export async function createListing(
     return { success: false, message: validationError };
   }
 
-  const supabase = createServerClient();
+  const user = await requireUser();
+  const supabase = await createServerClient();
 
   let listingId: string | null = null;
 
   try {
     const imageUrls: string[] = [];
     for (const image of images) {
-      const path = `listings/${crypto.randomUUID()}-${slugifyFilename(image.name)}`;
+      const path = `${user.id}/${crypto.randomUUID()}-${slugifyFilename(image.name)}`;
       const { error } = await supabase.storage
         .from(LISTING_IMAGE_BUCKET)
         .upload(path, image, {
@@ -79,7 +82,10 @@ export async function createListing(
         title,
         description,
         price: Number(price),
+        user_id: user.id,
         image_urls: imageUrls,
+        cover_image_url: imageUrls[0],
+        category,
         status: "active",
       })
       .select("id")

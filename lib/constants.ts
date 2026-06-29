@@ -6,9 +6,21 @@ export const BRAND_COLOR = "#7B3FE4";
 export const BRAND_ACCENT_BG = "#F4F1FF";
 export const BRAND_ACCENT_BORDER = "#D9D1FF";
 
+export const LISTING_CATEGORIES = [
+  "Electronics",
+  "Fashion",
+  "Home",
+  "Furniture",
+  "Collectibles",
+  "Gaming",
+  "Automotive",
+  "Other",
+] as const;
+
 export const NAV_LINKS = [
   { href: "/listings", label: "Browse" },
   { href: "/sell", label: "Sell" },
+  { href: "/dashboard", label: "Dashboard" },
   { href: "/about", label: "About" },
   { href: "/faq", label: "FAQ" },
 ] as const;
