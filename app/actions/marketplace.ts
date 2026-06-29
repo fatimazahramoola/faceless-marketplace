@@ -139,18 +139,18 @@ export async function createMockOrder(formData: FormData) {
     .update({ status: "sold", updated_at: new Date().toISOString() })
     .eq("id", listingId);
 
-  await supabase.from("notifications").insert([
-    {
-      user_id: sellerId,
-      title: "Listing sold",
-      body: "A buyer completed the test checkout for one of your listings.",
-    },
-    {
-      user_id: user.id,
-      title: "Order placed",
-      body: "Your test payment was successful. The seller can now update the order.",
-    },
-  ]);
+  await supabase.rpc("create_notification", {
+    target_user_id: sellerId,
+    notification_title: "Listing sold",
+    notification_body:
+      "A buyer completed the test checkout for one of your listings.",
+  });
+  await supabase.rpc("create_notification", {
+    target_user_id: user.id,
+    notification_title: "Order placed",
+    notification_body:
+      "Your test payment was successful. The seller can now update the order.",
+  });
 
   redirect(data ? `/orders/${data.id}` : "/buyer");
 }
@@ -167,11 +167,20 @@ export async function updateOrderStatus(formData: FormData) {
       .update({ status, updated_at: new Date().toISOString() })
       .eq("id", orderId);
 
-    await supabase.from("notifications").insert({
-      user_id: user.id,
-      title: "Order updated",
-      body: `Order status changed to ${status}.`,
-    });
+    const { data: order } = await supabase
+      .from("orders")
+      .select("buyer_id, seller_id")
+      .eq("id", orderId)
+      .single();
+
+    if (order) {
+      const recipientId = order.buyer_id === user.id ? order.seller_id : order.buyer_id;
+      await supabase.rpc("create_notification", {
+        target_user_id: recipientId,
+        notification_title: "Order updated",
+        notification_body: `Order status changed to ${status}.`,
+      });
+    }
   }
 
   revalidatePath(`/orders/${orderId}`);

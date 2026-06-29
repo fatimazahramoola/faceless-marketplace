@@ -118,6 +118,22 @@ create policy "Users create own notifications" on public.notifications
   for insert to authenticated
   with check (auth.uid() = user_id);
 
+create or replace function public.create_notification(
+  target_user_id uuid,
+  notification_title text,
+  notification_body text
+)
+returns void
+language plpgsql
+security definer
+set search_path = public
+as $$
+begin
+  insert into public.notifications (user_id, title, body)
+  values (target_user_id, notification_title, notification_body);
+end;
+$$;
+
 create policy "Conversation participants read conversations" on public.conversations
   for select to authenticated
   using (auth.uid() in (buyer_id, seller_id));
@@ -168,6 +184,7 @@ grant select, insert, delete on public.wishlist_items to authenticated;
 grant select, insert, update, delete on public.recently_viewed to authenticated;
 grant select, insert, update on public.orders to authenticated;
 grant select, insert, update on public.notifications to authenticated;
+grant execute on function public.create_notification(uuid, text, text) to authenticated;
 grant select, insert, update on public.conversations to authenticated;
 grant select, insert on public.messages to authenticated;
 grant select on public.reviews to anon, authenticated;
