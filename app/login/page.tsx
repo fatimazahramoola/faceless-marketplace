@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { AuthForm } from "@/components/AuthForm";
 import { SectionContainer } from "@/components/SectionContainer";
 import { createPageMetadata } from "@/lib/metadata";
@@ -21,7 +22,9 @@ export default function LoginPage() {
           </h1>
         </div>
         <div className="mt-8">
-          <AuthForm mode="login" />
+          <Suspense>
+            <AuthForm mode="login" />
+          </Suspense>
         </div>
       </SectionContainer>
     </main>

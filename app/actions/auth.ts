@@ -32,9 +32,9 @@ function readCredentials(formData: FormData): CredentialResult {
     return { error: "Passwords do not match." };
   }
 
-  // Basic password strength: must include a letter and a number
-  if (!/[A-Za-z]/.test(password) || !/[0-9]/.test(password)) {
-    return { error: "Password must include letters and numbers." };
+  // Require at least one uppercase, one lowercase and one number
+  if (!/[A-Z]/.test(password) || !/[a-z]/.test(password) || !/[0-9]/.test(password)) {
+    return { error: "Password must include at least one uppercase letter, one lowercase letter, and one number." };
   }
 
   return { email, password, name };
@@ -63,7 +63,12 @@ export async function signUp(
   });
 
   if (error) {
-    return { success: false, message: error.message };
+    // Friendly messaging for common duplicate-account case.
+    const msg = /already|duplicate|exists/i.test(error.message)
+      ? "An account already exists with this email. Try logging in or use Forgot Password."
+      : error.message;
+
+    return { success: false, message: msg };
   }
 
   return {
@@ -136,6 +141,32 @@ export async function logOut() {
   const supabase = await createServerClient();
   await supabase.auth.signOut();
   redirect("/");
+}
+
+export async function sendPasswordReset(
+  _prevState: AuthFormState | undefined,
+  formData: FormData,
+): Promise<AuthFormState> {
+  const email = String(formData.get("email") || "").trim().toLowerCase();
+  if (!email || !email.includes("@")) {
+    return { success: false, message: "Please enter a valid email address." };
+  }
+
+  const supabase = await createServerClient();
+  const { error } = await supabase.auth.resetPasswordForEmail(email, {
+    redirectTo: `${await getOrigin()}/reset-password`,
+  } as { redirectTo?: string });
+
+  if (error) {
+    return { success: false, message: error.message };
+  }
+
+  return { success: true, message: "If an account exists, a reset email has been sent." };
+}
+
+// Wrapper suitable for use directly as a form action in client components
+export async function sendPasswordResetForm(formData: FormData) {
+  await sendPasswordReset(undefined, formData as FormData);
 }
 
 export async function updateProfile(formData: FormData) {
