@@ -1,6 +1,7 @@
 "use server";
 
 import { redirect } from "next/navigation";
+import { revalidatePath } from "next/cache";
 import {
   LISTING_IMAGE_BUCKET,
   validateListingInput,
@@ -101,4 +102,97 @@ export async function createListing(
   }
 
   redirect(`/listings/${listingId}`);
+}
+
+export async function updateListing(formData: FormData) {
+  const user = await requireUser();
+  const supabase = await createServerClient();
+  const listingId = String(formData.get("listing_id") || "");
+  const title = String(formData.get("title") || "").trim();
+  const description = String(formData.get("description") || "").trim();
+  const price = String(formData.get("price") || "").trim();
+  const category = String(formData.get("category") || "").trim();
+  const status = String(formData.get("status") || "active");
+
+  const validationError = validateListingInput({
+    title,
+    description,
+    price,
+    category,
+    images: [],
+    requireImages: false,
+  });
+
+  if (validationError || !listingId) {
+    redirect(`/dashboard?error=${encodeURIComponent(validationError ?? "Listing not found.")}`);
+  }
+
+  await supabase
+    .from("listings")
+    .update({
+      title,
+      description,
+      price: Number(price),
+      category,
+      status,
+      updated_at: new Date().toISOString(),
+    })
+    .eq("id", listingId)
+    .eq("user_id", user.id);
+
+  revalidatePath("/dashboard");
+  revalidatePath(`/listings/${listingId}`);
+  redirect("/dashboard");
+}
+
+export async function deleteListing(formData: FormData) {
+  const user = await requireUser();
+  const supabase = await createServerClient();
+  const listingId = String(formData.get("listing_id") || "");
+
+  if (listingId) {
+    await supabase.from("listings").delete().eq("id", listingId).eq("user_id", user.id);
+  }
+
+  revalidatePath("/dashboard");
+}
+
+export async function markListingSold(formData: FormData) {
+  const user = await requireUser();
+  const supabase = await createServerClient();
+  const listingId = String(formData.get("listing_id") || "");
+
+  if (listingId) {
+    await supabase
+      .from("listings")
+      .update({ status: "sold", updated_at: new Date().toISOString() })
+      .eq("id", listingId)
+      .eq("user_id", user.id);
+  }
+
+  revalidatePath("/dashboard");
+}
+
+export async function duplicateListing(formData: FormData) {
+  const user = await requireUser();
+  const supabase = await createServerClient();
+  const listingId = String(formData.get("listing_id") || "");
+
+  const { data } = await supabase
+    .from("listings")
+    .select("title, description, price, image_urls, cover_image_url, category")
+    .eq("id", listingId)
+    .eq("user_id", user.id)
+    .single();
+
+  if (data) {
+    await supabase.from("listings").insert({
+      ...data,
+      user_id: user.id,
+      title: `${data.title} (copy)`,
+      status: "draft",
+    });
+  }
+
+  revalidatePath("/dashboard");
 }

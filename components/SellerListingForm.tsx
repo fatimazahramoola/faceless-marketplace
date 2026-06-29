@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState } from "react";
+import { useActionState, useMemo, useRef, useState } from "react";
 import { createListing } from "@/app/actions/listings";
 import { LISTING_CATEGORIES } from "@/lib/constants";
 import type { ListingFormState } from "@/lib/types";
@@ -15,6 +15,22 @@ export function SellerListingForm() {
     createListing,
     initialState,
   );
+
+  const inputRef = useRef<HTMLInputElement>(null);
+  const [dragging, setDragging] = useState(false);
+  const [files, setFiles] = useState<File[]>([]);
+  const previews = useMemo(
+    () =>
+      files.map((file) => ({
+        name: file.name,
+        url: URL.createObjectURL(file),
+      })),
+    [files],
+  );
+
+  function handleFiles(fileList: FileList | null) {
+    setFiles(Array.from(fileList ?? []).slice(0, 4));
+  }
 
   return (
     <form action={formAction} className="space-y-6">
@@ -109,18 +125,61 @@ export function SellerListingForm() {
         >
           Product images
         </label>
+        <div
+          onDragOver={(event) => {
+            event.preventDefault();
+            setDragging(true);
+          }}
+          onDragLeave={() => setDragging(false)}
+          onDrop={(event) => {
+            event.preventDefault();
+            setDragging(false);
+            handleFiles(event.dataTransfer.files);
+            if (inputRef.current) {
+              inputRef.current.files = event.dataTransfer.files;
+            }
+          }}
+          className={`mt-2 rounded-xl border border-dashed px-4 py-5 transition ${
+            dragging
+              ? "border-[#7B3FE4] bg-[#F4F1FF]"
+              : "border-[#D9D1FF] bg-[#F4F1FF]"
+          }`}
+        >
         <input
+          ref={inputRef}
           id="images"
           name="images"
           type="file"
           accept="image/jpeg,image/png,image/webp"
           multiple
           required
-          className="mt-2 block w-full rounded-xl border border-dashed border-[#D9D1FF] bg-[#F4F1FF] px-4 py-5 text-sm text-neutral-700 file:mr-4 file:rounded-lg file:border-0 file:bg-[#7B3FE4] file:px-4 file:py-2 file:text-sm file:font-semibold file:text-white"
+          onChange={(event) => handleFiles(event.target.files)}
+          className="block w-full text-sm text-neutral-700 file:mr-4 file:rounded-lg file:border-0 file:bg-[#7B3FE4] file:px-4 file:py-2 file:text-sm file:font-semibold file:text-white"
         />
+        </div>
         <p className="mt-2 text-xs text-neutral-500">
           Upload 1-4 JPG, PNG, or WebP images. Each image must be 5 MB or less.
         </p>
+        {previews.length > 0 && (
+          <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-4">
+            {previews.map((preview, index) => (
+              <div
+                key={preview.url}
+                className="overflow-hidden rounded-xl border border-neutral-200"
+              >
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={preview.url}
+                  alt={`Upload preview ${index + 1}: ${preview.name}`}
+                  className="aspect-square w-full object-cover"
+                />
+                <p className="truncate px-2 py-1 text-xs text-neutral-500">
+                  {index === 0 ? "Cover image" : preview.name}
+                </p>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
 
       {state.message && (
@@ -134,7 +193,7 @@ export function SellerListingForm() {
         disabled={pending}
         className="inline-flex min-h-11 w-full items-center justify-center rounded-xl bg-[#7B3FE4] px-6 py-3 text-base font-semibold text-white transition hover:opacity-90 disabled:opacity-60 sm:w-auto"
       >
-        {pending ? "Creating listing..." : "Create listing"}
+        {pending ? "Uploading images..." : "Create listing"}
       </button>
     </form>
   );

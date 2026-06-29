@@ -1,4 +1,4 @@
-import type { Listing } from "@/lib/types";
+import type { Listing, ListingStatus } from "@/lib/types";
 import { createServerClient } from "@/lib/supabase/server";
 
 export const LISTING_IMAGE_BUCKET = "listing-images";
@@ -46,6 +46,53 @@ export async function getActiveListing(id: string): Promise<Listing | null> {
   }
 
   return data;
+}
+
+export async function getUserListings(userId: string): Promise<Listing[]> {
+  const supabase = await createServerClient();
+  const { data, error } = await supabase
+    .from("listings")
+    .select("*, profiles:user_id(id, name, avatar_url, is_verified_seller, created_at, updated_at)")
+    .eq("user_id", userId)
+    .order("created_at", { ascending: false });
+
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  return data ?? [];
+}
+
+export async function getUserListing(
+  userId: string,
+  listingId: string,
+): Promise<Listing | null> {
+  const supabase = await createServerClient();
+  const { data, error } = await supabase
+    .from("listings")
+    .select("*")
+    .eq("user_id", userId)
+    .eq("id", listingId)
+    .single();
+
+  if (error) {
+    if (error.code === "PGRST116") {
+      return null;
+    }
+
+    throw new Error(error.message);
+  }
+
+  return data;
+}
+
+export function groupListingsByStatus(listings: Listing[]) {
+  const statuses: ListingStatus[] = ["active", "sold", "draft", "archived"];
+
+  return statuses.map((status) => ({
+    status,
+    listings: listings.filter((listing) => listing.status === status),
+  }));
 }
 
 export function validateListingInput(input: {
