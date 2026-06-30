@@ -1,5 +1,7 @@
-import Link from "next/link";
+import { PlusIcon } from "@heroicons/react/24/outline";
 import { DashboardListingCard } from "@/components/DashboardListingCard";
+import { EmptyState } from "@/components/ui/EmptyState";
+import { LinkButton } from "@/components/ui/LinkButton";
 import { SectionContainer } from "@/components/SectionContainer";
 import { getUserListings, groupListingsByStatus } from "@/lib/listings";
 import { createPageMetadata } from "@/lib/metadata";
@@ -32,13 +34,11 @@ export default async function DashboardPage() {
             <h1 className="text-3xl font-bold text-neutral-900 sm:text-4xl">
               Manage your listings
             </h1>
+            <p className="mt-3 max-w-2xl text-sm text-neutral-600">
+              Review your inventory, publish new items, and keep your active listings in view.
+            </p>
           </div>
-          <Link
-            href="/sell"
-            className="inline-flex min-h-11 items-center justify-center rounded-xl bg-[#7B3FE4] px-6 py-3 font-semibold text-white transition hover:opacity-90"
-          >
-            New listing
-          </Link>
+          <LinkButton href="/sell">New listing</LinkButton>
         </div>
 
         <div className="mt-8 grid gap-4 sm:grid-cols-3">
@@ -66,9 +66,12 @@ export default async function DashboardPage() {
                     <DashboardListingCard key={listing.id} listing={listing} />
                   ))
                 ) : (
-                  <p className="rounded-2xl border border-neutral-200 p-5 text-sm text-neutral-500">
-                    No {status} listings yet.
-                  </p>
+                  <EmptyState
+                    icon={<PlusIcon className="h-6 w-6" />}
+                    title={`No ${status} listings yet`}
+                    description={`Create a new listing to build your ${status} inventory and draw buyer interest.`}
+                    action={<LinkButton href="/sell">Add a listing</LinkButton>}
+                  />
                 )}
               </div>
             </section>

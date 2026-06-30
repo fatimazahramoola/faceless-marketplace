@@ -5,6 +5,7 @@ type ListingImageProps = {
   alt: string;
   priority?: boolean;
   className?: string;
+  aspectClass?: string;
 };
 
 export function ListingImage({
@@ -12,11 +13,12 @@ export function ListingImage({
   alt,
   priority = false,
   className = "",
+  aspectClass = "aspect-square",
 }: ListingImageProps) {
   if (!src) {
     return (
       <div
-        className={`flex aspect-square items-center justify-center bg-[#F4F1FF] text-sm font-semibold text-[#7B3FE4] ${className}`}
+        className={`flex ${aspectClass} items-center justify-center bg-[#F4F1FF] text-sm font-semibold text-[#7B3FE4] ${className}`}
       >
         No image
       </div>
@@ -24,7 +26,7 @@ export function ListingImage({
   }
 
   return (
-    <div className={`relative aspect-square overflow-hidden bg-neutral-100 ${className}`}>
+    <div className={`relative ${aspectClass} overflow-hidden bg-neutral-100 ${className}`}>
       <Image
         src={src}
         alt={alt}

@@ -133,18 +133,17 @@ export default async function ListingDetailPage({
               <p className="text-sm font-semibold text-neutral-500">Seller</p>
               <Link
                 href={`/users/${listing.user_id}`}
-                className="mt-2 inline-flex items-center gap-2 font-bold text-neutral-900 hover:text-[#7B3FE4]"
+                className="mt-2 inline-flex flex-wrap items-center gap-2 font-bold text-neutral-900 hover:text-[#7B3FE4]"
               >
                 {listing.profiles?.name ?? "Faceless seller"}
-                {listing.profiles?.is_verified_seller && (
-                  <span className="rounded-full bg-[#F4F1FF] px-2 py-1 text-xs text-[#7B3FE4]">
-                    Verified seller
-                  </span>
-                )}
               </Link>
+              {listing.profiles?.created_at ? (
+                <p className="mt-2 text-sm text-neutral-600">
+                  Member since {new Date(listing.profiles.created_at).toLocaleDateString("en-ZA", { month: "short", year: "numeric" })}
+                </p>
+              ) : null}
               <p className="mt-3 text-sm text-neutral-600">
-                Buyer protection and seller protection are built into the
-                Faceless checkout workflow.
+                Ask a question, save this listing, or start checkout to explore how facilitated marketplace transactions work.
               </p>
             </Card>
 

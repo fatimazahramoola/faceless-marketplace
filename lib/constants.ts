@@ -1,5 +1,5 @@
 export const SITE_NAME = "Faceless Marketplace";
-export const SITE_TAGLINE = "A trusted way to buy and sell online.";
+export const SITE_TAGLINE = "A cleaner, safer marketplace for everyday buyers and sellers.";
 export const CONTACT_EMAIL = "hello@facelessmarketplace.co.za";
 
 export const BRAND_COLOR = "#7B3FE4";
@@ -14,7 +14,9 @@ export const LISTING_CATEGORIES = [
   "Collectibles",
   "Gaming",
   "Automotive",
-  "Other",
+  "Beauty",
+  "Toys",
+  "Sports",
 ] as const;
 
 export const NAV_LINKS = [
@@ -38,46 +40,45 @@ export const FOOTER_LINKS = [
   { href: "/terms", label: "Terms" },
 ] as const;
 
-export const HERO_BADGE =
-  "A safer way to buy and sell online.";
+export const HERO_BADGE = "Local marketplace";
 
-export const HERO_HEADLINE = "Sell with confidence. Buy with protection.";
+export const HERO_HEADLINE = "Buy and sell with clarity, confidence and real community.";
 
 export const HERO_SUBHEADING =
-  "Faceless connects buyers and sellers through a trusted middleman, so everyday online transactions feel safer and more reliable.";
+  "Faceless gives local buyers and sellers a cleaner marketplace experience — with clear listings, simple communication and more reliable checkout flows.";
 
 export const HERO_TRUST_POINTS = [
-  "Trusted middleman",
   "Buyer protection",
-  "Seller protection",
-  "Safer transactions",
+  "Secure transactions",
+  "Support when something goes wrong",
+  "Community-first marketplace",
 ] as const;
 
 export const HERO_CTA_TRUST_LINES = [
   "Free to join.",
-  "Trusted middleman.",
+  "No hidden fees.",
   "Launching in South Africa.",
 ] as const;
 
 export const HERO_TRUST_PANEL_ITEMS = [
   {
     title: "Buyer protection",
-    description: "Never send money directly to a stranger again.",
+    description: "Clear expectations and a safer way to shop local listings.",
   },
   {
-    title: "Seller protection",
-    description: "Know payment is verified before you ship.",
+    title: "Seller support",
+    description: "A smoother listing process and easier communication with buyers.",
   },
   {
-    title: "Secure transactions",
-    description: "Faceless sits between both sides of every deal.",
+    title: "Checkout preview",
+    description: "A more reliable flow designed to reduce surprises for both buyers and sellers.",
   },
 ] as const;
 
 export const HOW_IT_WORKS_HEADING = "How Faceless Works";
 
 export const HOW_IT_WORKS_SUBHEADING =
-  "From listing to payout — a simple journey for buyers and sellers.";
+  "From listing to purchase — a simple journey for buyers and sellers.";
 
 export const HOW_IT_WORKS_STEPS = [
   {
@@ -115,7 +116,7 @@ export const HOW_IT_WORKS_STEPS = [
 export const WHY_FACELESS_HEADING = "Why Faceless?";
 
 export const WHY_FACELESS_SUBHEADING =
-  "Most online selling forces you to choose between risky person-to-person deals and complicated retail setups. Faceless gives everyday sellers a trusted way to sell — with protection built in.";
+  "Most online selling forces you to choose between risky person-to-person deals and complicated retail setups. Faceless gives everyday sellers a safer way to sell — with protection built in.";
 
 export const POSITIONING_HEADING =
   "More trusted than classifieds. Simpler than becoming an online retailer.";
@@ -135,8 +136,8 @@ export const MARKET_COMPARISON = [
   {
     label: "Faceless Marketplace",
     points: [
-      "Trusted middleman",
-      "Buyer and seller protection",
+      "Clear listing expectations",
+      "Buyer and seller support",
       "Built for everyday sellers",
     ],
     highlight: true,
@@ -156,9 +157,9 @@ export const ROADMAP_LAUNCH = [
 
 export const ROADMAP_FUTURE = [
   "Delivery integration",
-  "Verified sellers",
   "Seller profiles",
   "Marketplace search",
+  "Improved seller tools",
 ] as const;
 
 export const WAITLIST_SECTION_HEADING = "Be first to know";
