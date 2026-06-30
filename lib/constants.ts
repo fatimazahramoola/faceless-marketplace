@@ -39,23 +39,23 @@ export const FOOTER_LINKS = [
 ] as const;
 
 export const HERO_BADGE =
-  "For side hustles, small businesses, and everyday sellers.";
+  "A safer way to buy and sell online.";
 
-export const HERO_HEADLINE = "Trusted online selling for everyone.";
+export const HERO_HEADLINE = "Sell with confidence. Buy with protection.";
 
 export const HERO_SUBHEADING =
-  "Whether you're selling a once-off item, a handmade product, or building a side business, Faceless Marketplace helps buyers and sellers transact with confidence through a trusted middleman.";
+  "Faceless connects buyers and sellers through a trusted middleman, so everyday online transactions feel safer and more reliable.";
 
 export const HERO_TRUST_POINTS = [
-  "Buyer Protection",
-  "Seller Protection",
-  "Secure Payments",
-  "Dispute Resolution",
+  "Trusted middleman",
+  "Buyer protection",
+  "Seller protection",
+  "Safer transactions",
 ] as const;
 
 export const HERO_CTA_TRUST_LINES = [
   "Free to join.",
-  "No spam.",
+  "Trusted middleman.",
   "Launching in South Africa.",
 ] as const;
 
